@@ -57,6 +57,14 @@ body {
     font-weight: 600;
 }
 
+.btn-primary:active, 
+.btn-primary:focus, 
+.btn-primary.active,
+.btn-primary:hover {
+    background-color: #b36b00 !important;
+    border-color: #b36b00 !important;
+}
+
 .btn-outline-light {
     padding: 0.6rem 1.5rem;
     font-weight: 600;
@@ -170,12 +178,13 @@ body {
     font-weight: 700;
     font-size: 1.5rem;
     color: #fff;
+    transition: transform 0.3s;
 }
 
 .navbar-brand:hover {
-    color: #ff9900;
-    transition: transform 0.3s;
+    color: #fff;
 }
+
 
 .navbar {
     padding: 1rem 0;
@@ -192,3 +201,4 @@ body {
         font-size: 1.2rem;
     }
 }
+
