@@ -1,10 +1,10 @@
-package perchiki.com.sata;
+package ru.ChillyPeppersInc.koster;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SataApplicationTests {
+class KosterApplicationTests {
 
 	@Test
 	void contextLoads() {

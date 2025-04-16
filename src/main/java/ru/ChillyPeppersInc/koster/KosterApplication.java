@@ -1,13 +1,13 @@
-package perchiki.com.sata;
+package ru.ChillyPeppersInc.koster;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SataApplication {
+public class KosterApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SataApplication.class, args);
+		SpringApplication.run(KosterApplication.class, args);
 	}
 
 }
