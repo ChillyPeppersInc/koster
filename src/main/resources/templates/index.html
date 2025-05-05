@@ -1,38 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <link rel="icon" th:href="@{/images/fire.gif}" type="image/gif">
-    <link th:href="@{/css/style.css}" rel="stylesheet">
-    <title>костёр</title>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: commonHead(~{::specific-head})}">
+    <th:block th:fragment="specific-head">
+        <!-- дополнение head -->
+        <link th:href="@{/css/index.css}" rel="stylesheet">
+    </th:block>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img th:src="@{/images/fire.gif}" width="50px" style="padding-right: 10px;"></i>
-                <span>костёр</span>
-            </a>
-
-            <button class="navbar-toggler border-0 navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon text-white"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav ms-auto d-flex flex-column align-items-center">
-                    <div class="ms-lg-3 mt-3 mt-lg-0">
-                        <a href="#" class="btn btn-primary me-2">Войти</a>
-                        <a href="#" class="btn btn-primary me-2">Регистрация</a>
-                    </div>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div th:insert="~{fragments/header :: header}"></div>
 
     <section class="hero-section">
         <div class="container">
@@ -49,6 +25,7 @@
         <div class="container">
             <h2 class="text-center section-title">Наши возможности</h2>
             <div class="row g-4">
+
                 <div class="col-md-4">
                     <div class="card feature-card p-4">
                         <div class="feature-icon">
@@ -69,26 +46,6 @@
                     </div>
                 </div>
 
-                <!-- <div class="col-md-4">
-                    <div class="card feature-card p-4">
-                        <div class="feature-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <h3>Мессенджер</h3>
-                        <p>Общайтесь в реальном времени с помощью текстовых сообщений, голосовых и видео звонков.</p>
-                    </div>
-                </div> -->
-                <!--
-                <div class="col-md-4">
-                    <div class="card feature-card p-4">
-                        <div class="feature-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <h3>События</h3>
-                        <p>Создавайте и посещайте мероприятия, находите интересные события в вашем городе.</p>
-                    </div>
-                </div>-->
-
                 <div class="col-md-4">
                     <div class="card feature-card p-4">
                         <div class="feature-icon">
@@ -99,16 +56,6 @@
                     </div>
                 </div>
 
-                <!-- 
-                <div class="col-md-4">
-                    <div class="card feature-card p-4">
-                        <div class="feature-icon">
-                            <i class="fas fa-bell"></i>
-                        </div>
-                        <h3>Уведомления</h3>
-                        <p>Персонализированные уведомления о важных событиях и активности друзей.</p>
-                    </div>
-                </div> -->
             </div>
         </div>
     </section>
@@ -183,11 +130,9 @@
         <div class="container text-center">
             <h2 class="mb-4">Готовы присоединиться к нашему сообществу?</h2>
             <p class="mb-5 fs-5">Зарегистрируйтесь сейчас и начните общаться с людьми по всему универститету</p>
-            <a href="#" class="btn btn-light btn-lg px-5 me-3">Зарегистрироваться</a>
+            <a th:href="@{/register}" class="btn btn-light btn-lg px-5 me-3">Зарегистрироваться</a>
         </div>
     </section>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
