@@ -6,7 +6,7 @@
         <link th:href="@{/css/index.css}" rel="stylesheet">
         <link th:href="@{/css/register.css}" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-        <title>регистрация</title>
+        <title>логин</title>
     </th:block>
 </head>
 
@@ -21,27 +21,14 @@
                     <div class="row g-0">
                         <div class="col-lg-7">
                             <div class="card-body p-5">
-                                <h2 class="card-title text-center mb-4 animate__animated animate__fadeInDown">Создать аккаунт</h2>
+                                <h2 class="card-title text-center mb-4 animate__animated animate__fadeInDown">Войти в аккаунт</h2>
 
-                                <form th:action="@{/register}" method="post">
-                                    <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
-                                        <label for="fullname" class="form-label">Имя</label>
-                                        <input type="text" class="form-control" id="fullname" name="fullname" required placeholder="Ваше имя">
-                                    </div>
-
+                                <form th:action="@{/login}" method="post">
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
                                         <label for="username" class="form-label">Логин</label>
                                         <div class="input-group">
                                             <span class="input-group-text">@</span>
                                             <input type="text" class="form-control" id="username" name="username" required placeholder="Ваш логин">
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3 animate__animated animate__fadeIn animate-delay-2">
-                                        <label for="email" class="form-label">Email</label>
-                                        <div class="input-group">
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Почта" required>
-                                            <span class="input-group-text">@kpfu.ru</span>
                                         </div>
                                     </div>
 
@@ -55,28 +42,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="mb-4 animate__animated animate__fadeIn animate-delay-3">
-                                        <label for="confirmPassword" class="form-label">Подтвердите пароль</label>
-                                        <div class="password-container">
-                                            <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required placeholder="Повторите пароль">
-                                            <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3 animate__animated animate__fadeIn animate-delay-3">
-                                        <label for="group" class="form-label">Группа обучения</label>
-                                        <input type="text" class="form-control" id="group" name="group"
-                                               placeholder="Например: 11-401" required>
-                                    </div>
-
                                     <div class="d-grid mb-3 animate__animated animate__fadeIn animate-delay-4">
-                                        <button type="submit" class="btn btn-primary btn-lg py-3">Зарегистрироваться</button>
+                                        <button type="submit" class="btn btn-primary btn-lg py-3">Войти</button>
                                     </div>
 
                                     <div class="form-footer animate__animated animate__fadeIn animate-delay-4">
-                                        <p class="mb-0">Уже есть аккаунт? <a th:href="@{/login}">Войти</a></p>
+                                        <p class="mb-0">Забыли пароль? <a th:href="@{/password_reset}">Восстановить</a></p>
                                     </div>
                                 </form>
                             </div>
