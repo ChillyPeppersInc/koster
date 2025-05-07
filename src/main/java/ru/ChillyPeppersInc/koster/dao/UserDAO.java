@@ -10,27 +10,27 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ChillyPeppersInc.koster.models.User;
 
 @Component
-public class UserDAO {
-    private final SessionFactory sessionFactory;
-    @Autowired
-    public UserDAO(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-    @Transactional
-    public void save(User user) {
-        Session session = sessionFactory.getCurrentSession();
-        session.persist(user);
-    }
-
-    @Transactional
-    public void update(int id, User updatedUser) {
-        Session session = sessionFactory.getCurrentSession();
-        User userToBeUpdated = session.get(User.class, id);
-
-        userToBeUpdated.setName(updatedUser.getName());
-        userToBeUpdated.setSurname(updatedUser.getSurname());
-        userToBeUpdated.setEmail(updatedUser.getEmail());
-        userToBeUpdated.setPassword(String.valueOf(updatedUser.getPassword()));
-    }
+public class  UserDAO {
+//    private final SessionFactory sessionFactory;
+//    @Autowired
+//    public UserDAO(SessionFactory sessionFactory) {
+//        this.sessionFactory = sessionFactory;
+//    }
+//
+//    @Transactional
+//    public void save(User user) {
+//        Session session = sessionFactory.getCurrentSession();
+//        session.persist(user);
+//    }
+//
+//    @Transactional
+//    public void update(int id, User updatedUser) {
+//        Session session = sessionFactory.getCurrentSession();
+//        User userToBeUpdated = session.get(User.class, id);
+//
+//        userToBeUpdated.setName(updatedUser.getName());
+//        userToBeUpdated.setSurname(updatedUser.getSurname());
+//        userToBeUpdated.setEmail(updatedUser.getEmail());
+//        userToBeUpdated.setPassword(String.valueOf(updatedUser.getPassword()));
+//    }
 }

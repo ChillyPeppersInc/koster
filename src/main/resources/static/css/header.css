@@ -1,0 +1,36 @@
+.navbar {
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #fff;
+    transition: transform 0.3s;
+}
+
+.navbar-brand:hover {
+    color: #fff;
+}
+
+.nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    color: var(--dark-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+}
+
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary.active,
+.btn-primary:hover {
+    background-color: #b36b00 !important;
+    border-color: #b36b00 !important;
+}

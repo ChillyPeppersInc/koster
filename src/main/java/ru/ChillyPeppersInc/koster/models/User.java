@@ -4,7 +4,10 @@ package ru.ChillyPeppersInc.koster.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
+import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "Users")
@@ -29,18 +32,21 @@ public class User {
     @Email
     private String email;
 
+    @Column(name = "date_of_birthday")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past
     private String dateOfBirthday;
 
     @Column(name = "password")
     @NotEmpty(message = "Password shouldn't be empty")
-    private int password;
+    private String password;
 
     public User(String name, String surname, String mail, String dateOfBirthday, String password) {
         this.name = name;
         this.surname = surname;
         this.email = mail;
         this.dateOfBirthday = dateOfBirthday;
-        this.password = password.hashCode();
+        setPassword(password);
     }
 
     public User() {
@@ -80,9 +86,9 @@ public class User {
     }
 
     public void setPassword(String password) {
-        this.password = password.hashCode();
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());;
     }
-    public int getPassword() {
+    public String getHashedPassword() {
         return password;
     }
 }
