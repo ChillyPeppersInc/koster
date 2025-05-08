@@ -25,8 +25,13 @@
 
                                 <form th:action="@{/register}" method="post">
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
-                                        <label for="fullname" class="form-label">Имя</label>
-                                        <input type="text" class="form-control" id="fullname" name="fullname" required placeholder="Ваше имя">
+                                        <label for="firstname" class="form-label">Имя</label>
+                                        <input type="text" class="form-control" id="firstname" name="firstname" required placeholder="Ваше имя">
+                                    </div>
+
+                                    <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
+                                        <label for="surname" class="form-label">Фамилия</label>
+                                        <input type="text" class="form-control" id="surname" name="surname" required placeholder="Ваша фамилия">
                                     </div>
 
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
@@ -40,9 +45,19 @@
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-2">
                                         <label for="email" class="form-label">Email</label>
                                         <div class="input-group">
-                                            <input type="email" class="form-control" id="email" name="email" placeholder="Почта" required>
+                                            <input type="text" class="form-control" id="email" name="email"
+                                                   placeholder="Почта" required
+                                                   oninput="this.value = this.value.replace(/@kpfu\.ru$/g, '')">
                                             <span class="input-group-text">@kpfu.ru</span>
                                         </div>
+                                        <input type="hidden" id="full-email" name="full-email">
+
+                                        <script>
+                                            document.getElementById('email').addEventListener('blur', function() {
+                                                const userPart = this.value.trim();
+                                                document.getElementById('full-email').value = userPart + '@kpfu.ru';
+                                            });
+                                        </script>
                                     </div>
 
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-2">
@@ -71,6 +86,12 @@
                                                placeholder="Например: 11-401" required>
                                     </div>
 
+                                    <div class="mb-3 animate__animated animate__fadeIn animate-delay-3">
+                                        <label for="birthdate" class="form-label">Дата рождения</label>
+                                        <input type="date" class="form-control" id="birthdate" name="birthdate"
+                                               placeholder="Например: 01-01-2001" required>
+                                    </div>
+
                                     <div class="d-grid mb-3 animate__animated animate__fadeIn animate-delay-4">
                                         <button type="submit" class="btn btn-primary btn-lg py-3">Зарегистрироваться</button>
                                     </div>
@@ -84,29 +105,29 @@
                         <div class="col-lg-5 d-none d-lg-flex illustration-side">
                             <img th:src="@{/images/fire.gif}" class="illustration-img">
                         </div>
+                        </div>
                     </div>
                 </div>
-            </div>
         </div>
-    </div>
-</section>
+        </div>
+    </section>
 
-<script>
-    function togglePassword(fieldId) {
-        const field = document.getElementById(fieldId);
-        const icon = field.nextElementSibling.querySelector('i');
+    <script>
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            const icon = field.nextElementSibling.querySelector('i');
 
-        if (field.type === 'password') {
-            field.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            field.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
+            if (field.type === 'password') {
+                field.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                field.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
         }
-    }
-</script>
+    </script>
 
 </body>
 </html>
