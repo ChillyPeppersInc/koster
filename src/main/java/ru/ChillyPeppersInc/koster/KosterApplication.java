@@ -9,5 +9,4 @@ public class KosterApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KosterApplication.class, args);
 	}
-
 }

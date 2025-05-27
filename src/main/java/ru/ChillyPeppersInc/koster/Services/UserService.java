@@ -7,6 +7,8 @@ import ru.ChillyPeppersInc.koster.dto.RegistrationDto;
 import ru.ChillyPeppersInc.koster.repositories.UserRepository;
 import ru.ChillyPeppersInc.koster.models.User;
 
+import java.sql.Date;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -26,11 +28,14 @@ public class UserService {
             User user = new User();
             user.setName(registrationDto.name());
             user.setSurname(registrationDto.surname());
+            user.setUserName(registrationDto.username());
+            user.setBirthdate(Date.valueOf(registrationDto.birthdate()));
             setPassword(user, registrationDto.password());
             user.setEmail(registrationDto.email());
             userRepository.save(user);
             return ResponseEntity.ok("User registered successfully!");
         } catch (RuntimeException e) {
+            System.out.println(e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
