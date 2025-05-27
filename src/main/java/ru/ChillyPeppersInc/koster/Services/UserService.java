@@ -32,6 +32,7 @@ public class UserService {
             user.setBirthdate(Date.valueOf(registrationDto.birthdate()));
             setPassword(user, registrationDto.password());
             user.setEmail(registrationDto.email());
+            user.setStatus("active");
             userRepository.save(user);
             return ResponseEntity.ok("User registered successfully!");
         } catch (RuntimeException e) {
