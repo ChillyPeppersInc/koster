@@ -1,6 +1,7 @@
 package ru.ChillyPeppersInc.koster.Services;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.ChillyPeppersInc.koster.dto.RegistrationDto;
 import ru.ChillyPeppersInc.koster.repositories.UserRepository;
@@ -14,27 +15,28 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User registerNewUser(RegistrationDto registrationDto) {
-        System.out.println(userRepository.findByEmail(registrationDto.getEmail()));
-//        if (userRepository.findByEmail(registrationDto.getEmail()).isPresent()) {
-//            throw new RuntimeException("Username already exists");
-//        }
+    public ResponseEntity<?> registerNewUser(RegistrationDto registrationDto) {
+        System.out.println(userRepository.findByEmail(registrationDto.email()));
 
-        if (userRepository.findByEmail(registrationDto.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(registrationDto.email()).isPresent()) {
             throw new RuntimeException("Email already exists");
         }
 
-        User user = new User();
-        user.setName(registrationDto.getName());
-        user.setSurname(registrationDto.getSurname());
-        user.setPassword(registrationDto.getPassword());
-        user.setEmail(registrationDto.getEmail());
-
-//        Role userRole = roleRepository.findByName("ROLE_USER")
-//                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-//        user.setRoles(Collections.singleton(userRole));
-
-        return userRepository.save(user);
+        try {
+            User user = new User();
+            user.setName(registrationDto.name());
+            user.setSurname(registrationDto.surname());
+            setPassword(user, registrationDto.password());
+            user.setEmail(registrationDto.email());
+            userRepository.save(user);
+            return ResponseEntity.ok("User registered successfully!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
+    private void setPassword(User user, String password) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        user.setPassword(encoder.encode(password));
+    }
 }
