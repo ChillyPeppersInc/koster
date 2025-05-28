@@ -24,6 +24,6 @@ public class LoginService {
         }
 
         User user = userOptional.get();
-        return BCrypt.checkpw(password, user.getHashedPassword());
+        return BCrypt.checkpw(password, user.getPassword());
     }
 }

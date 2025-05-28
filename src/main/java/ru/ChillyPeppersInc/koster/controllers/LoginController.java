@@ -17,22 +17,28 @@ public class LoginController {
     }
 
     @GetMapping("/login")
-    public String singUp() {
+    public String showLoginPage() {
         return "login.html";
     }
 
     @PostMapping("/login")
     public String login(LoginDTO loginDTO, Model model) {
-        boolean rightPassword = loginService.checkpassword(
-                loginDTO.getMail(),
-                loginDTO.getPassword()
-        );
+        try {
+            boolean rightPassword = loginService.checkpassword(// заглушка - проверка происходит по почте, но получается как username
+                    loginDTO.getUsername(),
+                    loginDTO.getPassword()
+            );
+            System.out.println(loginDTO.getUsername() + " " + loginDTO.getPassword());
 
-        if (rightPassword) {
-            return "redirect:/";
-        } else {
-            model.addAttribute("error", "Invalid username or password.");
-            return "login.html";
+            if (rightPassword) {
+                return "redirect:/profile";
+            } else {
+                model.addAttribute("error", "Invalid username or password.");
+                return "login";
+            }
+        }catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
+            return "login";
         }
 
     }
