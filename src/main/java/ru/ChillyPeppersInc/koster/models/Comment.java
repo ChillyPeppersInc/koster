@@ -8,12 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Comments")
-public class Comment {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+public class Comment extends Action {
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;

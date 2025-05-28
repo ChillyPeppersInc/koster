@@ -8,12 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Messages")
-public class Message {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+public class Message extends Action {
     @JoinColumn(name = "sender_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user1;

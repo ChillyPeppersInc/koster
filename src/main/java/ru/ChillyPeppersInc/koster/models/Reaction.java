@@ -8,11 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Reactions")
-public class Reaction {
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+public class Reaction extends Action{
 
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
