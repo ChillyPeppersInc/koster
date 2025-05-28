@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: commonHead(~{::specific-head})}">
+    <th:block th:fragment="specific-head">
+        <link th:href="@{/css/index.css}" rel="stylesheet">
+        <link th:href="@{/css/profile.css}" rel="stylesheet">
+        <title>профиль</title>
+    </th:block>
+</head>
+
+<body>
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="profile-page animate__animated animate__fadeIn">
+        <div class="profile-sidebar">
+            <img th:src="@{/images/kamil.jpg}" class="profile-avatar">
+            <h2 class="profile-name">Камиль Хуззятов</h2>
+            <p class="profile-username">@kamil</p>
+
+            <div class="profile-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-label">Группа</div>
+                        <div class="info-value">11-401</div>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-label">Почта</div>
+                        <div class="info-value">kamil@kpfu.ru</div>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-birthday-cake"></i>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-label">Дата рождения</div>
+                        <div class="info-value">01.01.2006</div>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-label">О себе</div>
+                        <div class="info-value">привет</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="comments-section">
+            <h3 class="section-title"><i class="fas fa-comments"></i> Комментарии</h3>
+
+            <div class="comment">
+                <img th:src="@{/images/anton.jpg}" class="comment-avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="comment-author">Антон Котельников</span>
+                        <span class="comment-date">27.05.2025 в 22:22</span>
+                    </div>
+                    <p class="comment-text">привет</p>
+                    <div class="comment-actions">
+                        <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
+                        <span class="comment-action"><i class="fas fa-thumbs-up"></i> Нравится (999)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comment">
+                <img th:src="@{/images/anton.jpg}" class="comment-avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="comment-author">Антон Котельников</span>
+                        <span class="comment-date">27.05.2025 в 22:21</span>
+                    </div>
+                    <p class="comment-text">привет всем</p>
+                    <div class="comment-actions">
+                        <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
+                        <span class="comment-action"><i class="fas fa-thumbs-up"></i> Нравится (999)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="comment">
+                <img th:src="@{/images/anton.jpg}" class="comment-avatar">
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <span class="comment-author">Антон Котельников</span>
+                        <span class="comment-date">27.05.2025 в 22:20</span>
+                    </div>
+                    <p class="comment-text">привет</p>
+                    <div class="comment-actions">
+                        <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
+                        <span class="comment-action"><i class="fas fa-thumbs-up"></i> Нравится (999)</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
