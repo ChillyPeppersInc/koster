@@ -23,7 +23,7 @@ public class Notification {
     private User sender;
 
     @Column(name = "related_id")
-
+    private int relatedId;
 
     @Column(name = "has_readen")
     private boolean hasReaden;
