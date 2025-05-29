@@ -8,19 +8,24 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Friendships")
-public class Friendship {
+public class Subscriber {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @JoinColumn(name = "subscriber_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User subscriber;
+
     @JoinColumn(name = "user_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @JoinColumn(name = "friend_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User friend;
-
-    @Column(name = "date_of_becoming_friends")
+    @Column(name = "date_of_following")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past
-    private Date dateOfBecomingFriends;
+    private Date dateOfFollowing;
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -40,16 +45,24 @@ public class Friendship {
     @Column(name = "status")
     private String status;
 
-    public Friendship() {}
+    public Subscriber() {}
 
-    public Friendship(User user, User friend, Date dateOfBecomingFriends, Date createdAt, Date updatedAt, Date deletedAt, String status) {
+    public Subscriber(User subscriber, User user, Date dateOfFollowing, Date createdAt, Date updatedAt, Date deletedAt, String status) {
+        this.subscriber = subscriber;
         this.user = user;
-        this.friend = friend;
-        this.dateOfBecomingFriends = dateOfBecomingFriends;
+        this.dateOfFollowing = dateOfFollowing;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
         this.status = status;
+    }
+
+    public User getSubscriber() {
+        return subscriber;
+    }
+
+    public void setSubscriber(User subscriber) {
+        this.subscriber = subscriber;
     }
 
     public User getUser() {
@@ -60,20 +73,12 @@ public class Friendship {
         this.user = user;
     }
 
-    public User getFriend() {
-        return friend;
+    public Date getDateOfFollowing() {
+        return dateOfFollowing;
     }
 
-    public void setFriend(User friend) {
-        this.friend = friend;
-    }
-
-    public Date getDateOfBecomingFriends() {
-        return dateOfBecomingFriends;
-    }
-
-    public void setDateOfBecomingFriends(Date dateOfBecomingFriends) {
-        this.dateOfBecomingFriends = dateOfBecomingFriends;
+    public void setDateOfFollowing(Date dateOfFollowing) {
+        this.dateOfFollowing = dateOfFollowing;
     }
 
     public Date getCreatedAt() {

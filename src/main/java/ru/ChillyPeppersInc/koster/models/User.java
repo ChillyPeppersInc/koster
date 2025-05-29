@@ -41,11 +41,20 @@ public class User {
     @Email
     private String email;
 
+    @Column(name = "avatar")
+    private String avatar;
+
     @Column(name = "date_of_birthday")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     // работает с типами java.util.Date, java.util.Calendar, java.time.*
     @Past
     private Date birthdate;
+
+    @Column(name = "is_active")
+    private boolean isActive;
+
+    @Column(name = "last_login")
+    private Date lastLogin;
 
     @Column(name = "password")
     @NotEmpty(message = "Password shouldn't be empty")
@@ -70,12 +79,16 @@ public class User {
     private String status;
 
 
-    public User(String username, String name, String surname, String email, Date dateOfBirthday, String password, Date createdAt, Date updatedAt, Date deletedAt, String status) {
+    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, Date birthdate, boolean isActive, Date lastLogin, String password, Date createdAt, Date updatedAt, Date deletedAt, String status) {
+        this.posts = posts;
         this.username = username;
         this.name = name;
         this.surname = surname;
         this.email = email;
-        this.birthdate = dateOfBirthday;
+        this.avatar = avatar;
+        this.birthdate = birthdate;
+        this.isActive = isActive;
+        this.lastLogin = lastLogin;
         setPassword(password);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
@@ -172,5 +185,21 @@ public class User {
 
     public void setBirthdate(Date birthdate) {
         this.birthdate = birthdate;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 }

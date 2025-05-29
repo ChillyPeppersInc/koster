@@ -3,7 +3,6 @@ package ru.ChillyPeppersInc.koster.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.sql.Date;
 
 @Entity
@@ -23,6 +22,9 @@ public class Post {
 
     @Column(name = "image")
     private String image;
+
+    @Column(name = "geolocation")
+    private String geolocation;
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -47,10 +49,11 @@ public class Post {
 
     public Post() {}
 
-    public Post(User user, String content, String image, Date createdAt, Date updatedAt, Date deletedAt, boolean isPublic, String status) {
+    public Post(User user, String content, String image, String geolocation, Date createdAt, Date updatedAt, Date deletedAt, boolean isPublic, String status) {
         this.user = user;
         this.content = content;
         this.image = image;
+        this.geolocation = geolocation;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -120,5 +123,13 @@ public class Post {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getGeolocation() {
+        return geolocation;
+    }
+
+    public void setGeolocation(String geolocation) {
+        this.geolocation = geolocation;
     }
 }

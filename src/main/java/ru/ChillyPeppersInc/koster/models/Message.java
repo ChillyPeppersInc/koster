@@ -3,12 +3,16 @@ package ru.ChillyPeppersInc.koster.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.util.Date;
 
 @Entity
 @Table(name = "Messages")
-public class Message extends Action {
+public class Message {
+    @Id
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @JoinColumn(name = "sender_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private User user1;
