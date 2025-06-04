@@ -29,16 +29,20 @@ public class UserController {
 
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String registerUser(
-            @ModelAttribute("user") @Valid RegistrationDto registrationDto,
+            @ModelAttribute("registrationDto") @Valid RegistrationDto registrationDto,
             BindingResult bindingResult,
             Model model) {
 
         if (bindingResult.hasErrors()) {
-            bindingResult.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
-            return "register"; // возвращаем обратно на форму с ошибками
+            return "register"; // Остаемся на странице с отображением ошибок
         }
 
-        userService.registerNewUser(registrationDto);
-        return "redirect:/login"; // перенаправляем после успешной регистрации
+        try {
+            userService.registerNewUser(registrationDto);
+            return "redirect:/login?registered";
+        } catch (RuntimeException e) {
+            model.addAttribute("error", e.getMessage());
+            return "register";
+        }
     }
 }

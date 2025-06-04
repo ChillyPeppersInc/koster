@@ -202,4 +202,8 @@ public class User {
     public void setLastLogin(Date lastLogin) {
         this.lastLogin = lastLogin;
     }
+
+    public String getPassword() {
+        return password;
+    }
 }
