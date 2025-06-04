@@ -2,14 +2,10 @@ package ru.ChillyPeppersInc.koster.models;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.Size;
-import org.mindrot.jbcrypt.BCrypt;
+import jakarta.validation.constraints.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Users")
@@ -31,25 +27,26 @@ public class User {
 
     @NotEmpty(message = "Name shouldn't be empty")
     @Size(min = 1, max = 50, message = "Name length should be between 1 and 50")
-    @Column(name = "user_name")
+    @Column(name = "user_name", unique = true)
     private String userName;
 
-    @Column(name = "email")
-    // @NotEmpty(message = "Email shouldn't be empty")
+    @Column(name = "email", unique = true)
+    @NotEmpty(message = "Email shouldn't be empty")
     @Email
     private String email;
 
     @Column(name = "date_of_birthday")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     // работает с типами java.util.Date, java.util.Calendar, java.time.*
     @Past
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @Column(name = "password")
     @NotEmpty(message = "Password shouldn't be empty")
     private String password;
 
-    public User(String name, String surname, String userName, String mail, Date dateOfBirthday, String password) {
+    public User(String name, String surname, String userName, String mail, LocalDate dateOfBirthday, String password) {
         this.name = name;
         this.surname = surname;
         this.email = mail;
@@ -94,11 +91,11 @@ public class User {
         this.email = mail;
     }
 
-    public Date getDateOfBirthday() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 

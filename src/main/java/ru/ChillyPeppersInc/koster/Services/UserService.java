@@ -8,6 +8,7 @@ import ru.ChillyPeppersInc.koster.repositories.UserRepository;
 import ru.ChillyPeppersInc.koster.models.User;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 @Service
 public class UserService {
@@ -18,10 +19,12 @@ public class UserService {
     }
 
     public ResponseEntity<?> registerNewUser(RegistrationDto registrationDto) {
-        System.out.println(userRepository.findByEmail(registrationDto.email()));
 
         if (userRepository.findByEmail(registrationDto.email()).isPresent()) {
             throw new RuntimeException("Email already exists");
+        }
+        if (userRepository.findByUserName(registrationDto.username()).isPresent()) {
+            throw new RuntimeException("Username already exists");
         }
 
         try {
@@ -29,7 +32,7 @@ public class UserService {
             user.setName(registrationDto.name());
             user.setSurname(registrationDto.surname());
             user.setUserName(registrationDto.username());
-            user.setBirthdate(Date.valueOf(registrationDto.birthdate()));
+            user.setBirthdate(registrationDto.getBirthdateAsLocalDate());
             setPassword(user, registrationDto.password());
             user.setEmail(registrationDto.email());
             userRepository.save(user);
