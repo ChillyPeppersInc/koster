@@ -25,8 +25,8 @@
 
                                 <form th:action="@{/register}" method="post">
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
-                                        <label for="firstname" class="form-label">Имя</label>
-                                        <input type="text" class="form-control" id="firstname" name="firstname" required placeholder="Ваше имя">
+                                        <label for="name" class="form-label">Имя</label>
+                                        <input type="text" class="form-control" id="name" name="name" required placeholder="Ваше имя">
                                     </div>
 
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
@@ -43,19 +43,19 @@
                                     </div>
 
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-2">
-                                        <label for="email" class="form-label">Email</label>
+                                        <label for="short-email" class="form-label">Email</label>
                                         <div class="input-group">
-                                            <input type="text" class="form-control" id="email" name="email"
+                                            <input type="text" class="form-control" id="short-email" name="short-email"
                                                    placeholder="Почта" required
                                                    oninput="this.value = this.value.replace(/@kpfu\.ru$/g, '')">
                                             <span class="input-group-text">@kpfu.ru</span>
                                         </div>
-                                        <input type="hidden" id="full-email" name="full-email">
+                                        <input type="hidden" id="email" name="email">
 
                                         <script>
-                                            document.getElementById('email').addEventListener('blur', function() {
+                                            document.getElementById('short-email').addEventListener('blur', function() {
                                                 const userPart = this.value.trim();
-                                                document.getElementById('full-email').value = userPart + '@kpfu.ru';
+                                                document.getElementById('email').value = userPart + '@kpfu.ru';
                                             });
                                         </script>
                                     </div>
