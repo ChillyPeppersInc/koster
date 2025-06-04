@@ -20,7 +20,10 @@ public class LoginService {
     public boolean checkpassword(String email, String password) {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isEmpty()){
-            return false;
+            userOptional = userRepository.findByEmail(email);
+            if (userOptional.isEmpty()){
+                return false;
+            }
         }
 
         User user = userOptional.get();
