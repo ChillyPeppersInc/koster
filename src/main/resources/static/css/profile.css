@@ -161,7 +161,53 @@
 .comment-action i {
     margin-right: 5px;
 }
-/* Адаптивность */
+.profile-follows {
+    text-align: center;
+    text-decoration: none;
+}
+.follow-link {
+    text-decoration: none;
+    color: var(--light-color);
+    transition: color 0.3s;
+}
+.follow-link:hover {
+    color: var(--primary-color);
+}
+.like-button {
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.like-button.liked {
+    color: var(--primary-color);
+}
+
+.like-button.liked .fa-thumbs-up {
+    color: var(--primary-color);
+}
+
+.comments {
+    display: none;
+}
+.posts-title {
+    color: var(--light-color);
+    transition: color 0.3s;
+}
+.posts-title:hover {
+    color: var(--light-color);
+}
+
+.comments-title {
+    color: var(--dark-color);
+    transition: color 0.3s;
+}
+
+.comments-title:hover {
+    color: var(--light-color);
+}
+
+
+
 @media (max-width: 992px) {
     .profile-page {
         flex-direction: column;
