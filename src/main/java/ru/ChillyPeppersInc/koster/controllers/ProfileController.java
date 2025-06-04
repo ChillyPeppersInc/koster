@@ -10,4 +10,5 @@ public class ProfileController {
     public String showProfile() {
         return "profile.html";
     }
+
 }
