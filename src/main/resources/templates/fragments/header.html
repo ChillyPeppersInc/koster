@@ -23,10 +23,25 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav ms-auto d-flex flex-column align-items-center">
                     <div class="ms-lg-3 mt-3 mt-lg-0">
-                        <a th:href="@{/login}" class="btn btn-primary me-2">Войти</a>
-                        <a th:href="@{/register}" class="btn btn-primary me-2">Регистрация</a>
-                    </div>
-                </ul>
+                        <div id="authUserSection">
+                            <div class="dropdown">
+                                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img th:src="@{/images/kamil.jpg}" class="rounded-circle me-2" width="50" height="50">
+                                    <span id="usernameDisplay" class="text-white">Камиль</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
+                                    <li><a class="dropdown-item" href="/settings">Настройки</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form action="/logout" method="post">
+                                        <button type="submit" class="dropdown-item">Выйти</button>
+                                        </form>
+                            </li>
+                            </ul>
+                            </div>
+                            </div>
+                                </ul>
             </div>
         </div>
     </nav>

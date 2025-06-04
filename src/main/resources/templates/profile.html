@@ -16,8 +16,31 @@
             <img th:src="@{/images/kamil.jpg}" class="profile-avatar">
             <h2 class="profile-name">Камиль Хуззятов</h2>
             <p class="profile-username">@kamil</p>
+            <div class="profile-follows">
+                <span class="follows-count">
+                    <a th:href="@{/followers}" class="follow-link">
+                    0 подписчиков
+                    </a>
+                </span>
+                 |
+                <span class="follows-count">
+                    <a th:href="@{/follows}" class="follow-link">
+                    999 подписок
+                    </a>
+                </span>
+            </div>
 
             <div class="profile-info">
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="info-content">
+                        <div class="info-label">О себе</div>
+                        <div class="info-value">Привет всем!!!</div>
+                    </div>
+                </div>
+
                 <div class="info-item">
                     <div class="info-icon">
                         <i class="fas fa-users"></i>
@@ -47,70 +70,61 @@
                         <div class="info-value">01.01.2006</div>
                     </div>
                 </div>
-
-                <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fas fa-user"></i>
-                    </div>
-                    <div class="info-content">
-                        <div class="info-label">О себе</div>
-                        <div class="info-value">привет</div>
-                    </div>
-                </div>
             </div>
         </div>
 
 
-        <div class="comments-section">
-            <h3 class="section-title"><i class="fas fa-comments"></i> Комментарии</h3>
+        <div class="comments-section" style="max-height: 632px; overflow-y: auto;">
+            <h3 class="section-title">
+                <span class="posts-title" onclick="showPosts()">
+                    <i class="fas fa-bullhorn"></i> Публикации
+                </span>
+                <i style="padding-right: 15px"></i>
+                <span class="comments-title" onclick="showComments()">
+                    <i class="fas fa-comments" ></i> Комментарии
+                </span>
+            </h3>
 
-            <div class="comment">
-                <img th:src="@{/images/anton.jpg}" class="comment-avatar">
-                <div class="comment-content">
-                    <div class="comment-header">
-                        <span class="comment-author">Антон Котельников</span>
-                        <span class="comment-date">27.05.2025 в 22:22</span>
-                    </div>
-                    <p class="comment-text">привет</p>
-                    <div class="comment-actions">
-                        <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
-                        <span class="comment-action"><i class="fas fa-thumbs-up"></i> Нравится (999)</span>
+            <div class="posts">
+                <div class="comment">
+                    <img th:src="@{/images/kamil.jpg}" class="comment-avatar">
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">Камиль Хуззятов</span>
+                            <span class="comment-date">27.05.2025 в 22:20</span>
+                        </div>
+                        <p class="comment-text">Всем привет!!!</p>
+                        <img th:src="@{/images/kamil.jpg}" style="max-width: 300px;">
+                        <div class="comment-actions">
+                            <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="comment">
-                <img th:src="@{/images/anton.jpg}" class="comment-avatar">
-                <div class="comment-content">
-                    <div class="comment-header">
-                        <span class="comment-author">Антон Котельников</span>
-                        <span class="comment-date">27.05.2025 в 22:21</span>
-                    </div>
-                    <p class="comment-text">привет всем</p>
-                    <div class="comment-actions">
-                        <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
-                        <span class="comment-action"><i class="fas fa-thumbs-up"></i> Нравится (999)</span>
+
+
+            <div class="comments">
+                <div class="comment">
+                    <img th:src="@{/images/anton.jpg}" class="comment-avatar">
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">Антон Котельников</span>
+                            <span class="comment-date">27.05.2025 в 22:20</span>
+                        </div>
+                        <p class="comment-text">привет</p>
+                        <div class="comment-actions">
+                            <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
+                            <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="comment">
-                <img th:src="@{/images/anton.jpg}" class="comment-avatar">
-                <div class="comment-content">
-                    <div class="comment-header">
-                        <span class="comment-author">Антон Котельников</span>
-                        <span class="comment-date">27.05.2025 в 22:20</span>
-                    </div>
-                    <p class="comment-text">привет</p>
-                    <div class="comment-actions">
-                        <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
-                        <span class="comment-action"><i class="fas fa-thumbs-up"></i> Нравится (999)</span>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
 
+    <script th:src="@{/js/profile.js}"></script>
 </body>
 </html>
