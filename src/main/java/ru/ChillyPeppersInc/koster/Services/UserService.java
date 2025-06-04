@@ -23,7 +23,7 @@ public class UserService {
         if (userRepository.findByEmail(registrationDto.email()).isPresent()) {
             throw new RuntimeException("Email already exists");
         }
-        if (userRepository.findByUserName(registrationDto.username()).isPresent()) {
+        if (userRepository.findByUsername(registrationDto.username()).isPresent()) {
             throw new RuntimeException("Username already exists");
         }
 

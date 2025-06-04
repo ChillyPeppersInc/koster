@@ -23,8 +23,9 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showRegistrationPage() {
-        return "register.html";
+    public String showRegistrationPage(Model model) {
+        model.addAttribute("registartionDTO", new RegistrationDto("", "", "", "", "", ""));
+        return "register";
     }
 
     @PostMapping(path = "/register", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

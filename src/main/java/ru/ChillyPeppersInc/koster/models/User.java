@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +20,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(mappedBy = "userId")
+    @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
     @NotEmpty(message = "Username shouldn't be empty")
@@ -48,7 +50,7 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     // работает с типами java.util.Date, java.util.Calendar, java.time.*
     @Past
-    private Date birthdate;
+    private LocalDate birthdate;
 
     @Column(name = "is_active")
     private boolean isActive;
@@ -79,7 +81,7 @@ public class User {
     private String status;
 
 
-    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, Date birthdate, boolean isActive, Date lastLogin, String password, Date createdAt, Date updatedAt, Date deletedAt, String status) {
+    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, boolean isActive, Date lastLogin, String password, Date createdAt, Date updatedAt, Date deletedAt, String status) {
         this.posts = posts;
         this.username = username;
         this.name = name;
@@ -135,9 +137,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getPassword() {
-        return password;
-    }
 
     public String getStatus() {
         return status;
@@ -179,11 +178,11 @@ public class User {
         this.username = username;
     }
 
-    public Date getBirthdate() {
+    public LocalDate getBirthdate() {
         return birthdate;
     }
 
-    public void setBirthdate(Date birthdate) {
+    public void setBirthdate(LocalDate birthdate) {
         this.birthdate = birthdate;
     }
 
