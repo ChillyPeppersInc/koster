@@ -53,7 +53,7 @@ public class User {
     private LocalDate birthdate;
 
     @Column(name = "is_active")
-    private boolean isActive;
+    private Boolean isActive;
 
     @Column(name = "last_login")
     private Date lastLogin;

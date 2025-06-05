@@ -5,41 +5,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import ru.ChillyPeppersInc.koster.Services.LoginService;
-import ru.ChillyPeppersInc.koster.dto.LoginDTO;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class LoginController {
-    private final LoginService loginService;
-
-    public LoginController(LoginService loginService) {
-        this.loginService = loginService;
-    }
-
     @GetMapping("/login")
-    public String showLoginPage() {
+    public String showLoginPage(
+            @RequestParam(required = false) String error,
+            @RequestParam(required = false) String logout,
+            Model model
+    ) {
+        if (error != null) {
+            model.addAttribute("error", "Неверный логин или пароль");
+        }
+        if (logout != null) {
+            model.addAttribute("message", "Вы успешно вышли из системы.");
+        }
         return "login.html";
     }
 
-    @PostMapping("/login")
-    public String login(LoginDTO loginDTO, Model model) {
-        try {
-            boolean rightPassword = loginService.checkpassword(// заглушка - проверка происходит по почте, но получается как username
-                    loginDTO.getUsername(),
-                    loginDTO.getPassword()
-            );
-            System.out.println(loginDTO.getUsername() + " " + loginDTO.getPassword());
-
-            if (rightPassword) {
-                return "redirect:/profile";
-            } else {
-                model.addAttribute("error", "Invalid username or password.");
-                return "login";
-            }
-        }catch (Exception e) {
-            model.addAttribute("error", e.getMessage());
-            return "login";
-        }
-
-    }
 }
