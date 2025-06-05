@@ -1,14 +1,35 @@
 package ru.ChillyPeppersInc.koster.controllers;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import ru.ChillyPeppersInc.koster.models.User;
+import ru.ChillyPeppersInc.koster.repositories.UserRepository;
 
 @Controller
 public class ProfileController {
 
+    private final UserRepository userRepository;
+
+    public ProfileController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     @GetMapping("/profile")
-    public String showProfile() {
-        return "profile.html";
+    public String showProfile(Model model,
+                              @AuthenticationPrincipal UserDetails userDetails) {
+
+        String username = userDetails.getUsername();
+
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        model.addAttribute("user", user);
+
+        return "profile";
     }
 
 }
