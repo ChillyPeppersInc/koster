@@ -19,7 +19,12 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         // Разрешаем доступ БЕЗ авторизации:
-                        .requestMatchers("/", "/index", "/login", "/register", "/static/**").permitAll()
+                        .requestMatchers("/", "/index", "/login", "/register",
+                                "/static/**",
+                                "/css/**",
+                                "/js/**",
+                                "/images/**",
+                                "/webjars/**").permitAll()
                         // Все остальные URL требуют входа:
                         .anyRequest().authenticated()
                 )
