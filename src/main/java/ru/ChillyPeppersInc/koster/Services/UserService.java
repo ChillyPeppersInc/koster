@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.ChillyPeppersInc.koster.dto.RegistrationDto;
-import ru.ChillyPeppersInc.koster.repositories.UserRepository;
+import ru.ChillyPeppersInc.koster.repositories.UsersRepository;
 import ru.ChillyPeppersInc.koster.models.User;
 
 import java.sql.Date;
@@ -12,9 +12,9 @@ import java.time.LocalDate;
 
 @Service
 public class UserService {
-        private final UserRepository userRepository;
+        private final UsersRepository userRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UsersRepository userRepository) {
         this.userRepository = userRepository;
     }
 
@@ -33,8 +33,11 @@ public class UserService {
             user.setSurname(registrationDto.surname());
             user.setUserName(registrationDto.username());
             user.setBirthdate(registrationDto.getBirthdateAsLocalDate());
+            user.setCreatedAt(LocalDate.now());
+            user.setUpdatedAt(LocalDate.now());
             setPassword(user, registrationDto.password());
             user.setEmail(registrationDto.email());
+            user.setStatus("created");
             userRepository.save(user);
             return ResponseEntity.ok("User registered successfully!");
         } catch (RuntimeException e) {

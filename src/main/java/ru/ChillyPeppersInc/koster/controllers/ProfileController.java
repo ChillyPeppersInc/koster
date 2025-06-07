@@ -7,14 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import ru.ChillyPeppersInc.koster.models.User;
-import ru.ChillyPeppersInc.koster.repositories.UserRepository;
+import ru.ChillyPeppersInc.koster.repositories.UsersRepository;
 
 @Controller
 public class ProfileController {
 
-    private final UserRepository userRepository;
+    private final UsersRepository userRepository;
 
-    public ProfileController(UserRepository userRepository) {
+    public ProfileController(UsersRepository userRepository) {
         this.userRepository = userRepository;
     }
 

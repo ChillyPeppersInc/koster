@@ -5,14 +5,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.ChillyPeppersInc.koster.repositories.UserRepository;
+import ru.ChillyPeppersInc.koster.repositories.UsersRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UserRepository userRepository; // Ваш репозиторий
+    private final UsersRepository userRepository; // Ваш репозиторий
 
-    public CustomUserDetailsService(UserRepository userRepository) {
+    public CustomUserDetailsService(UsersRepository userRepository) {
         this.userRepository = userRepository;
     }
 

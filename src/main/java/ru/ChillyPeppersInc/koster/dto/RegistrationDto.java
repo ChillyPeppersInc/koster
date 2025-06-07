@@ -4,33 +4,33 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public record RegistrationDto(
-        @NotBlank(message = "Name is required")
-        @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+        @NotBlank(message = "Имя должно быть заполнено")
+        @Size(min = 2, max = 50, message = "Длина имени должна быть между 2 и 50 символами")
         String name,
 
-        @NotBlank(message = "Surname is required")
-        @Size(min = 2, max = 50, message = "Surname must be between 2 and 50 characters")
+        @NotBlank(message = "Фамилия должна быть заполнена")
+        @Size(min = 2, max = 50, message = "Длина фамилии должна быть между 2 и 50 символами")
         String surname,
 
-        @NotBlank(message = "Username is required")
-        @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
-        @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Username can only contain letters, numbers and underscores")
+        @NotBlank(message = "Логин должен быть заполнен")
+        @Size(min = 3, max = 20, message = "Длина логина должна быть между 3 и 50 символами")
+        @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Логин может содержать только буквы, цифры и нижние подчеркивания")
         String username,
 
-        @NotBlank(message = "Email is required")
-        @Email(message = "Email should be valid")
+        @NotBlank(message = "Почта должна быть заполнена")
+        @Email(message = "Некорректная почта")
         String email,
 
-        @NotBlank(message = "Password is required")
-        @Size(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
+        @NotBlank(message = "Пароль должен быть заполнен")
+        @Size(min = 8, max = 100, message = "Длина пароля должна быть между 8 и 100 символами")
         @Pattern(
                 regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$",
-                message = "Password must contain at least one digit, one lowercase, one uppercase letter and one special character"
+                message = "Пароль должен содержать как минимум одну цифру, одну строчную, одну заглавную букву и один специальный символ"
         )
         String password,
 
-        @NotBlank(message = "Birthdate is required")
-        @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Birthdate must be in YYYY-MM-DD format")
+        @NotBlank(message = "День рождения должен быть заполнен")
+        @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Дата рождения должна быть указана в формате ГГГГ-ММ-ДД")
         String birthdate
 ) {
     // Дополнительный метод для удобства преобразования

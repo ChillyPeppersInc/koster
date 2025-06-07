@@ -24,7 +24,7 @@ public class User {
     private List<Post> posts;
 
     @NotEmpty(message = "Username shouldn't be empty")
-    @Size(min = 5, max = 50, message = "Username length should be between 5 and 20")
+    @Size(min = 3, max = 50, message = "Username length should be between 3 and 20")
     @Column(name = "username", unique = true)
     private String username;
 
@@ -64,13 +64,11 @@ public class User {
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "updated_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
     @Column(name = "deleted_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -81,7 +79,7 @@ public class User {
     private String status;
 
 
-    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, boolean isActive, Date lastLogin, String password, Date createdAt, Date updatedAt, Date deletedAt, String status) {
+    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, boolean isActive, Date lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, Date deletedAt, String status) {
         this.posts = posts;
         this.username = username;
         this.name = name;
@@ -146,19 +144,19 @@ public class User {
         this.status = status;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 

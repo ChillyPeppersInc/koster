@@ -35,6 +35,7 @@ public class UserController {
             Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("error", bindingResult.getFieldError().getDefaultMessage());
             return "register"; // Остаемся на странице с отображением ошибок
         }
 
