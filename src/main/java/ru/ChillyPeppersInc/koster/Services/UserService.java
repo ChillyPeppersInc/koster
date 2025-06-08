@@ -42,7 +42,7 @@ public class UserService {
             LocalDate updatedAt = LocalDate.now();
             LocalDate lastLogin = null;
             String password = setPassword(registrationDto.password());
-            List<Post> posts = null;
+            ArrayList<Post> posts = new ArrayList<>();
             boolean isActive = false;
             LocalDate deletedAt = null;
             User user = new User(posts, username, name, surname, email, avatar, birthdate, isActive, lastLogin,
