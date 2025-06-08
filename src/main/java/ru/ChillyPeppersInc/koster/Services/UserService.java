@@ -4,11 +4,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.ChillyPeppersInc.koster.dto.RegistrationDto;
+import ru.ChillyPeppersInc.koster.models.Post;
 import ru.ChillyPeppersInc.koster.repositories.UsersRepository;
 import ru.ChillyPeppersInc.koster.models.User;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService {
@@ -28,16 +31,22 @@ public class UserService {
         }
 
         try {
-            User user = new User();
-            user.setName(registrationDto.name());
-            user.setSurname(registrationDto.surname());
-            user.setUserName(registrationDto.username());
-            user.setBirthdate(registrationDto.getBirthdateAsLocalDate());
-            user.setCreatedAt(LocalDate.now());
-            user.setUpdatedAt(LocalDate.now());
-            setPassword(user, registrationDto.password());
-            user.setEmail(registrationDto.email());
-            user.setStatus("created");
+            String name = registrationDto.name();
+            String surname = registrationDto.surname();
+            String username = registrationDto.username();
+            String email = registrationDto.email();
+            String status = "created";
+            String avatar = null;
+            LocalDate birthdate = registrationDto.getBirthdateAsLocalDate();
+            LocalDate createdAt = LocalDate.now();
+            LocalDate updatedAt = LocalDate.now();
+            LocalDate lastLogin = null;
+            String password = setPassword(registrationDto.password());
+            List<Post> posts = null;
+            boolean isActive = false;
+            LocalDate deletedAt = null;
+            User user = new User(posts, username, name, surname, email, avatar, birthdate, isActive, lastLogin,
+                    password, createdAt, updatedAt, deletedAt, status);
             userRepository.save(user);
             return ResponseEntity.ok("User registered successfully!");
         } catch (RuntimeException e) {
@@ -46,8 +55,8 @@ public class UserService {
         }
     }
 
-    private void setPassword(User user, String password) {
+    private String setPassword(String password) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        user.setPassword(encoder.encode(password));
+        return encoder.encode(password);
     }
 }

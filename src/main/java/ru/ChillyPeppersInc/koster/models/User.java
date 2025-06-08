@@ -56,7 +56,7 @@ public class User {
     private Boolean isActive;
 
     @Column(name = "last_login")
-    private Date lastLogin;
+    private LocalDate lastLogin;
 
     @Column(name = "password")
     @NotEmpty(message = "Password shouldn't be empty")
@@ -73,13 +73,13 @@ public class User {
     @Column(name = "deleted_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Past
-    private Date deletedAt;
+    private LocalDate deletedAt;
 
     @Column(name = "status")
     private String status;
 
 
-    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, boolean isActive, Date lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, Date deletedAt, String status) {
+    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status) {
         this.posts = posts;
         this.username = username;
         this.name = name;
@@ -160,11 +160,11 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
-    public Date getDeletedAt() {
+    public LocalDate getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
+    public void setDeletedAt(LocalDate deletedAt) {
         this.deletedAt = deletedAt;
     }
 
@@ -192,15 +192,23 @@ public class User {
         isActive = active;
     }
 
-    public Date getLastLogin() {
+    public LocalDate getLastLogin() {
         return lastLogin;
     }
 
-    public void setLastLogin(Date lastLogin) {
+    public void setLastLogin(LocalDate lastLogin) {
         this.lastLogin = lastLogin;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
