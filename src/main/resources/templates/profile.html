@@ -38,16 +38,16 @@
                 </span>
             </div>
 
-            <div class="profile-info">
-                <div class="info-item">
+            <div class="profile-info" th:if="${user.bio != null}">
+                <!-- <div class="info-item">
                     <div class="info-icon">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="info-content">
                         <div class="info-label">О себе</div>
-                        <div class="info-value"></div>
+                        <div class="info-value" th:text="${user.bio}"></div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="info-item">
                     <div class="info-icon">
@@ -55,19 +55,9 @@
                     </div>
                     <div class="info-content">
                         <div class="info-label">Группа</div>
-                        <div class="info-value">11-401</div>
+                        <div class="info-value" th:text="${user.group}"></div>
                     </div>
                 </div>
-
-                <!-- <div class="info-item">
-                    <div class="info-icon">
-                        <i class="fas fa-envelope"></i>
-                    </div>
-                    <div class="info-content">
-                        <div class="info-label">Почта</div>
-                        <div class="info-value">@kpfu.ru</div>
-                    </div>
-                </div> -->
 
                 <div class="info-item">
                     <div class="info-icon">
@@ -89,7 +79,7 @@
                 </span>
                 <i style="padding-right: 15px"></i>
                 <span class="comments-title" onclick="showComments()">
-                    <i class="fas fa-comments" ></i> Комментарии
+                    <i class="fas fa-comments"></i> Комментарии
                 </span>
             </h3>
 
