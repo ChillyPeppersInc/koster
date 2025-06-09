@@ -229,11 +229,11 @@ public class User {
         this.posts = posts;
     }
 
-    public void setacademicGroup(String academicGroup) {
+    public void setAcademicGroup(String academicGroup) {
         this.academicGroup = academicGroup;
     }
 
-    public String getacademicGroup() {
+    public String getAcademicGroup() {
         return academicGroup;
     }
 
