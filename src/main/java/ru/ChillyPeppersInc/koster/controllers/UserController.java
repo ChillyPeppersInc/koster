@@ -24,7 +24,7 @@ public class UserController {
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model) {
-        model.addAttribute("registartionDTO", new RegistrationDto("", "", "", "", "", ""));
+        model.addAttribute("registartionDTO", new RegistrationDto("", "", "", "", "", "", ""));
         return "register";
     }
 

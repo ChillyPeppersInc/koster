@@ -52,8 +52,9 @@ public class User {
     @Past
     private LocalDate birthdate;
 
-    @Column(name = "group")
-    private String group;
+    @NotEmpty(message = "Группа не может быть пустой")
+    @Column(name = "academicGroup")
+    private String academicGroup;
 
     @Column(name = "bio")
     private String bio;
@@ -91,7 +92,7 @@ public class User {
     private String status;
 
 
-    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, String group, String bio, int subscribersCount, int subscribesCount, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status) {
+    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, String academicGroup, String bio, int followersCount, int followsCount, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status) {
         this.posts = posts;
         this.username = username;
         this.name = name;
@@ -99,10 +100,10 @@ public class User {
         this.email = email;
         this.avatar = avatar;
         this.birthdate = birthdate;
-        this.group = group;
+        this.academicGroup = academicGroup;
         this.bio = bio;
-        this.subscribersCount = 0; //TOCHANGE
-        this.subscribesCount = 0; //TOCHANGE
+        //this.followersCount = 0; //TOCHANGE
+        //this.followsCount = 0; //TOCHANGE
         this.isActive = isActive;
         this.lastLogin = lastLogin;
         setPassword(password);
@@ -227,4 +228,24 @@ public class User {
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
+
+    public void setacademicGroup(String academicGroup) {
+        this.academicGroup = academicGroup;
+    }
+
+    public String getacademicGroup() {
+        return academicGroup;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    // getFollowersCount
+    // setFollowersCount
+    // follows
 }

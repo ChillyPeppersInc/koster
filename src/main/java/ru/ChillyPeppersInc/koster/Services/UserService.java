@@ -38,6 +38,10 @@ public class UserService {
             String status = "created";
             String avatar = null;
             LocalDate birthdate = registrationDto.getBirthdateAsLocalDate();
+            String academicGroup = registrationDto.academicGroup();
+            String bio = null;
+            int followersCount = 0;
+            int followsCount = 0;
             LocalDate createdAt = LocalDate.now();
             LocalDate updatedAt = LocalDate.now();
             LocalDate lastLogin = null;
@@ -45,7 +49,7 @@ public class UserService {
             ArrayList<Post> posts = new ArrayList<>();
             boolean isActive = false;
             LocalDate deletedAt = null;
-            User user = new User(posts, username, name, surname, email, avatar, birthdate, isActive, lastLogin,
+            User user = new User(posts, username, name, surname, email, avatar, birthdate, academicGroup, bio, followersCount, followsCount, isActive, lastLogin,
                     password, createdAt, updatedAt, deletedAt, status);
             userRepository.save(user);
             return ResponseEntity.ok("User registered successfully!");

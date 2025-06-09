@@ -31,7 +31,10 @@ public record RegistrationDto(
 
         @NotBlank(message = "День рождения должен быть заполнен")
         @Pattern(regexp = "^\\d{4}-\\d{2}-\\d{2}$", message = "Дата рождения должна быть указана в формате ГГГГ-ММ-ДД")
-        String birthdate
+        String birthdate,
+
+        @NotBlank(message = "Группа должна быть заполнена")
+        String academicGroup
 ) {
     // Дополнительный метод для удобства преобразования
     public LocalDate getBirthdateAsLocalDate() {
