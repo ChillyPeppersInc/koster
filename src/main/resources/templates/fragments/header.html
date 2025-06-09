@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="~{fragments/head :: commonHead(~{::specific-head})}">
     <th:block th:fragment="specific-head">
         <!-- дополнение head -->
@@ -19,6 +19,7 @@
             <button class="navbar-toggler border-0 navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon text-white"></span>
             </button>
+
 
             <!-- user not logged in -->
             <div th:if="${user == null}" class="collapse navbar-collapse justify-content-center" id="navbarNav">
