@@ -34,3 +34,8 @@
     background-color: #b36b00 !important;
     border-color: #b36b00 !important;
 }
+
+.text-white:after {
+    color: var(--primary-color);
+    background-color: var(--primary-color);
+}

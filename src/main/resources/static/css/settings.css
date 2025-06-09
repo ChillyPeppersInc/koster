@@ -1,0 +1,217 @@
+.settings-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 2rem auto;
+    gap: 30px;
+
+    backdrop-filter: blur(10px);
+}
+
+.avatar-section {
+    width: 350px;
+    border-radius: 15px;
+    padding: 30px;
+    position: sticky;
+    top: 20px;
+
+    max-height: 632px;
+    overflow-y: auto;
+}
+.section-title {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: var(--light-color);
+    display: flex;
+    align-items: center;
+}
+
+.section-title span {
+    padding-right: 10px;
+}
+
+.profile-sidebar {
+    width: 350px;
+    border-radius: 15px;
+    padding: 30px;
+    position: sticky;
+    top: 20px;
+}
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin: 0 auto 20px;
+}
+
+.settings-fields {
+    flex: 1;
+    border-radius: 15px;
+    padding: 30px;
+}
+
+.settings-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.settings-container {
+    display: flex;
+    gap: 40px;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.avatar-section {
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.avatar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.avatar-upload-button, .avatar-remove-button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.avatar-upload-button {
+    background: #4CAF50;
+    color: white;
+}
+
+.avatar-upload-button:hover {
+    background: #3e8e41;
+}
+
+.avatar-remove-button {
+    background: #f5f5f5;
+    color: #555;
+}
+
+.avatar-remove-button:hover {
+    background: #e0e0e0;
+}
+
+.settings-section {
+    flex: 1;
+}
+
+
+.settings-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-weight: 600;
+    color: var(--light-color);
+    font-size: 14px;
+}
+
+.form-input, .form-textarea {
+    padding: 12px 15px;
+    border-radius: 5px;
+    font-size: 15px;
+    width: 100%;
+    max-width: 500px;
+    resize: none;
+}
+
+.form-input:focus, .form-textarea:focus {
+    outline: none;
+}
+
+.form-textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.cancel-button, .save-button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.cancel-button {
+    background: #f5f5f5;
+    color: #555;
+}
+
+.cancel-button:hover {
+    background: #e0e0e0;
+}
+
+.save-button {
+    background: #4CAF50;
+    color: white;
+}
+
+.save-button:hover {
+    background: #3e8e41;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .settings-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .avatar-section {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 30px;
+    }
+
+    .form-input, .form-textarea {
+        max-width: 100%;
+    }
+}
