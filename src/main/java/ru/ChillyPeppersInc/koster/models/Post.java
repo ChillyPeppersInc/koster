@@ -132,4 +132,6 @@ public class Post {
     public void setGeolocation(String geolocation) {
         this.geolocation = geolocation;
     }
+
+    public int getId() {return id;}
 }
