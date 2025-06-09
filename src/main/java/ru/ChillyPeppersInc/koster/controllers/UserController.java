@@ -2,6 +2,7 @@ package ru.ChillyPeppersInc.koster.controllers;
 
 
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,7 +24,10 @@ public class UserController {
     }
 
     @GetMapping("/register")
-    public String showRegistrationPage(Model model) {
+    public String showRegistrationPage(Model model, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/";
+        }
         model.addAttribute("registartionDTO", new RegistrationDto("", "", "", "", "", "", ""));
         return "register";
     }

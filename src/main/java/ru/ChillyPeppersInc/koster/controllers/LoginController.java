@@ -1,6 +1,7 @@
 package ru.ChillyPeppersInc.koster.controllers;
 
 
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +14,12 @@ public class LoginController {
     public String showLoginPage(
             @RequestParam(required = false) String error,
             @RequestParam(required = false) String logout,
-            Model model
+            Model model,
+            Authentication authentication
     ) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/"; // Залогиненных перенаправляем на главную
+        }
         if (error != null) {
             model.addAttribute("error", "Неверный логин или пароль");
         }
