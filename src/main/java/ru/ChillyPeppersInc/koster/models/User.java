@@ -59,11 +59,11 @@ public class User {
     @Column(name = "bio")
     private String bio;
 
-    @Column(name = "subscribersCount")
-    private int subscribersCount;
+    @Column(name = "followersCount")
+    private int followersCount;
 
-    @Column(name = "subscribesCount")
-    private int subscribesCount;
+    @Column(name = "followsCount")
+    private int followsCount;
 
     @Column(name = "is_active")
     private Boolean isActive;
@@ -102,8 +102,8 @@ public class User {
         this.birthdate = birthdate;
         this.academicGroup = academicGroup;
         this.bio = bio;
-        //this.followersCount = 0; //TOCHANGE
-        //this.followsCount = 0; //TOCHANGE
+        this.followersCount = 0; //TOCHANGE
+        this.followsCount = 0; //TOCHANGE
         this.isActive = isActive;
         this.lastLogin = lastLogin;
         setPassword(password);
@@ -245,7 +245,19 @@ public class User {
         return bio;
     }
 
-    // getFollowersCount
-    // setFollowersCount
-    // follows
+    public int getFollowersCount() {
+        return followersCount;
+    }
+
+    public void setFollowersCount(int followersCount) {
+        this.followersCount = followersCount;
+    }
+
+    public int getFollowsCount() {
+        return followsCount;
+    }
+
+    public void setFollowsCount(int followsCount) {
+        this.followsCount = followsCount;
+    }
 }
