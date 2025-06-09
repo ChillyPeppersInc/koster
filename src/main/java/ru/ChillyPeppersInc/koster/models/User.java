@@ -52,6 +52,18 @@ public class User {
     @Past
     private LocalDate birthdate;
 
+    @Column(name = "group")
+    private String group;
+
+    @Column(name = "bio")
+    private String bio;
+
+    @Column(name = "subscribersCount")
+    private int subscribersCount;
+
+    @Column(name = "subscribesCount")
+    private int subscribesCount;
+
     @Column(name = "is_active")
     private Boolean isActive;
 
@@ -79,7 +91,7 @@ public class User {
     private String status;
 
 
-    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status) {
+    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, String group, String bio, int subscribersCount, int subscribesCount, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status) {
         this.posts = posts;
         this.username = username;
         this.name = name;
@@ -87,6 +99,10 @@ public class User {
         this.email = email;
         this.avatar = avatar;
         this.birthdate = birthdate;
+        this.group = group;
+        this.bio = bio;
+        this.subscribersCount = 0; //TOCHANGE
+        this.subscribesCount = 0; //TOCHANGE
         this.isActive = isActive;
         this.lastLogin = lastLogin;
         setPassword(password);
