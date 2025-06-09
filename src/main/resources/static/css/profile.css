@@ -11,11 +11,13 @@
     padding: 30px;
     position: sticky;
     top: 20px;
-    height: fit-content;
     border: 1px solid rgba(0, 0, 0, 0.1);
 
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
+
+    max-height: 632px;
+    overflow-y: auto;
 }
 .profile-avatar {
     width: 150px;
@@ -44,7 +46,6 @@
     border-radius: 12px;
     padding: 20px;
     margin-bottom: 25px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
 }
 .info-item {
     display: flex;
