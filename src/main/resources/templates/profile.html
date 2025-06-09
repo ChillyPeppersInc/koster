@@ -23,15 +23,11 @@
             <p class="profile-username" th:text="'@' + ${user.username}"></p>
             <div class="profile-follows">
                 <span class="follows-count">
-                    <a th:href="@{/followers}" class="follow-link">
-                    0 подписчиков
-                    </a>
+                    <a th:href="@{/followers}" th:text="${user.followersCount} + ' подписчиков'" class="follow-link"></a>
                 </span>
                  |
                 <span class="follows-count">
-                    <a th:href="@{/follows}" class="follow-link">
-                    999 подписок
-                    </a>
+                    <a th:href="@{/follows}" th:text="${user.followersCount} + ' подписок'" class="follow-link"></a>
                 </span>
             </div>
 
