@@ -23,7 +23,10 @@
                             <div class="card-body p-5">
                                 <h2 class="card-title text-center mb-4 animate__animated animate__fadeInDown">Создать аккаунт</h2>
 
-                                <div th:if="${error}" class="error" th:text="${error}"></div>
+                                <div th:if="${error}" class="error-message">
+                                    <span>Ошибка: </span>
+                                    <span th:text="${error}"></span>
+                                </div>
                                 <form th:action="@{/register}" th:object="${registrationDto}" method="post">
                                     <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
                                         <label for="name" class="form-label">Имя</label>

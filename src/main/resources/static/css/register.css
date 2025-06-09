@@ -157,6 +157,12 @@
     animation: float 6s ease-in-out infinite;
 }
 
+.error-message {
+    text-align: center;
+    color: #c51120;
+    font-weight: 700;
+}
+
 @keyframes float {
     0% {
         transform: translateY(0px);

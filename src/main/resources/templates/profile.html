@@ -13,9 +13,17 @@
 
     <div class="profile-page animate__animated animate__fadeIn">
         <div class="profile-sidebar">
-            <img th:src="@{/images/kamil.jpg}" class="profile-avatar">
-            <h2 class="profile-name">Камиль Хуззятов</h2>
-            <p class="profile-username">@kamil</p>
+            <!-- <img th:src="${user.avatar}" class="profile-avatar">
+            <div th:text="${user.username} ?: 'Гость'"></div>
+            ВОТ ТАК СДЕЛАЙ -->
+
+            <img th:src="@{/images/default-avatar.png}" class="profile-avatar">
+
+            <h2 class="profile-name">
+                <span th:text="${user.name}"></span>
+                <span th:text="${user.surname}"></span>
+            </h2>
+            <p class="profile-username" th:text="'@' + ${user.username}"></p>
             <div class="profile-follows">
                 <span class="follows-count">
                     <a th:href="@{/followers}" class="follow-link">
@@ -37,7 +45,7 @@
                     </div>
                     <div class="info-content">
                         <div class="info-label">О себе</div>
-                        <div class="info-value">Привет всем!!!</div>
+                        <div class="info-value"></div>
                     </div>
                 </div>
 
@@ -51,15 +59,15 @@
                     </div>
                 </div>
 
-                <div class="info-item">
+                <!-- <div class="info-item">
                     <div class="info-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <div class="info-content">
                         <div class="info-label">Почта</div>
-                        <div class="info-value">kamil@kpfu.ru</div>
+                        <div class="info-value">@kpfu.ru</div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="info-item">
                     <div class="info-icon">
@@ -67,7 +75,7 @@
                     </div>
                     <div class="info-content">
                         <div class="info-label">Дата рождения</div>
-                        <div class="info-value">01.01.2006</div>
+                        <div class="info-value" th:text="${#temporals.format(user.birthdate, 'dd.MM.yyyy')}"></div>
                     </div>
                 </div>
             </div>

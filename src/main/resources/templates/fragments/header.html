@@ -20,13 +20,48 @@
                 <span class="navbar-toggler-icon text-white"></span>
             </button>
 
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <!-- user not logged in -->
+            <div th:if="${user == null}" class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav ms-auto d-flex flex-column align-items-center">
                     <div class="ms-lg-3 mt-3 mt-lg-0">
                         <a th:href="@{/login}" class="btn btn-primary me-2">Войти</a>
                         <a th:href="@{/register}" class="btn btn-primary me-2">Регистрация</a>
                     </div>
                 </ul>
+            </div>
+
+            <!-- user logged in-->
+            <div th:if="${user != null}" class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav ms-auto d-flex flex-column align-items-center">
+                    <div class="ms-lg-3 mt-3 mt-lg-0">
+                        <div id="authUserSection">
+                            <div class="dropdown">
+                                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <!-- <span th:if="${user.avatar == null}">
+                                        <img th:src="@{/images/kamil.jpg}" class="rounded-circle me-2" width="50" height="50">
+                                    </span>
+                                    <span th:if="${user.avatar != null}">
+                                        <img th:src="${user.avatar}" class="rounded-circle me-2" width="50" height="50">
+                                    </span> -->
+                                    <span>
+                                        <img th:src="@{/images/default-avatar.png}" class="rounded-circle me-2" width="50" height="50">
+                                    </span>
+
+                                    <span id="usernameDisplay" class="text-white" th:text="${user.name}"></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
+                                    <li><a class="dropdown-item" href="/settings">Настройки</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form action="/logout" method="post">
+                                        <button type="submit" class="dropdown-item">Выйти</button>
+                                        </form>
+                            </li>
+                            </ul>
+                            </div>
+                            </div>
+                                </ul>
             </div>
         </div>
     </nav>
