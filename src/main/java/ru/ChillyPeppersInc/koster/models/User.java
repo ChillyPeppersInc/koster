@@ -260,4 +260,6 @@ public class User {
     public void setFollowsCount(int followsCount) {
         this.followsCount = followsCount;
     }
+
+    public int getId() {return id;}
 }

@@ -7,6 +7,7 @@ import ru.ChillyPeppersInc.koster.models.User;
 import ru.ChillyPeppersInc.koster.repositories.PostRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -47,5 +48,9 @@ public class PostService {
         existingPost.setPublic(post.isPublic());
         existingPost.setStatus(post.getStatus());
         return postRepository.save(existingPost);
+    }
+
+    public List<Post> findByUser(User user) {
+        return postRepository.findByUser(user);
     }
 }
