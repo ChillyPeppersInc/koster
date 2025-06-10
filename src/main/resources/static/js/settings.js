@@ -22,7 +22,7 @@ function previewAvatar(input) {
 document.getElementById('remove-avatar').addEventListener('click', function() {
     const preview = document.getElementById('avatar-preview');
     preview.src = '/images/avatars/default-avatar.png';
-    document.getElementById('avatar').value = '';
+    document.getElementById('avatar').value = 'delete';
 
     preview.classList.add('animate__animated', 'animate__fadeIn');
     setTimeout(() => {
