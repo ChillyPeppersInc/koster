@@ -12,7 +12,7 @@
 <body>
     <div th:insert="~{fragments/header :: header}"></div>
 
-    <form id="settings-form" method="POST" th:action="@{/settings}">
+    <form id="settings-form" th:object="${registrationDto}" method="POST" th:action="@{/settings}">
     <div class="settings-page animate__animated animate__fadeIn">
         <div class="settings-container">
             <div class="avatar-section">
