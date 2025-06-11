@@ -9,6 +9,7 @@ import ru.ChillyPeppersInc.koster.models.User;
 import ru.ChillyPeppersInc.koster.repositories.UsersRepository;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -19,15 +20,10 @@ import java.util.UUID;
 @Service
 public class SettingsService {
     private final UsersRepository userRepository;
-    private final Path avatarsLocation = Paths.get("static/images/avatars");
+    private static final String UPLOAD_DIR = "static/images/avatars/";
 
     public SettingsService(UsersRepository userRepository) {
         this.userRepository = userRepository;
-        try {
-            Files.createDirectories(avatarsLocation);
-        } catch (IOException e) {
-            throw new RuntimeException("Не удалось создать директорию для аватаров", e);
-        }
     }
 
     public int updateUser(User user, SettingsDto settingsDto) {
@@ -37,34 +33,47 @@ public class SettingsService {
         user.setAcademicGroup(settingsDto.academicGroup());
         user.setBio(settingsDto.bio());
         user.setUpdatedAt(LocalDate.now());
-        if (settingsDto.avatar() != null && !settingsDto.avatar().isEmpty()) {
-            try {
-                String avatarFilename = storeAvatar(settingsDto.avatar());
-                user.setAvatar(avatarFilename);
-            } catch (IOException e) {
-                throw new RuntimeException("Не удалось загрузить автар", e);
-            }
-        }
+        user.setAvatar(getImage(settingsDto));
+
         userRepository.save(user);
 
         return 1;
     }
 
-    private String storeAvatar(MultipartFile avatar) throws IOException {
-        // Генерируем уникальное имя файла
-        String originalFilename = avatar.getOriginalFilename();
-        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-        String newFilename = UUID.randomUUID().toString() + extension;
+    private String getImage(SettingsDto settingsDto) {
+        MultipartFile file = settingsDto.avatar();
+        validateImageFile(file);
 
-        // Проверяем, что файл - изображение
-        if (!avatar.getContentType().startsWith("image/")) {
-            throw new IllegalArgumentException("Загружаемый файл не является изображением");
+        String filename = generateFilename(file.getOriginalFilename());
+        try {
+            saveToFileSystem(file.getBytes(), filename);
+        } catch (IOException e) {
+            throw new RuntimeException(e.getMessage());
         }
 
-        // Сохраняем файл
-        Path destinationFile = avatarsLocation.resolve(newFilename);
-        avatar.transferTo(destinationFile.toFile());
+        return filename;
+    }
 
-        return newFilename;
+    private void validateImageFile(MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new RuntimeException("File is empty");
+        }
+        if (!file.getContentType().startsWith("image/")) {
+            throw new RuntimeException("Only image files are allowed");
+        }
+    }
+
+    private Path saveToFileSystem(byte[] bytes, String filename) throws IOException {
+        Path uploadPath = Paths.get(UPLOAD_DIR);
+        if (!Files.exists(uploadPath)) {
+            Files.createDirectories(uploadPath);
+        }
+        Path filePath = uploadPath.resolve(filename);
+
+        return Files.write(filePath, bytes);
+    }
+
+    private String generateFilename(String originalFilename) {
+        return UUID.randomUUID().toString() + "_" + originalFilename;
     }
 }

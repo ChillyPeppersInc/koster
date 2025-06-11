@@ -12,12 +12,12 @@
 <body>
     <div th:insert="~{fragments/header :: header}"></div>
 
-    <form id="settings-form" th:object="${registrationDto}" method="POST" th:action="@{/settings}">
+    <form id="settings-form" th:object="${registrationDto}" method="POST" th:action="@{/settings}" enctype="multipart/form-data">
     <div class="settings-page animate__animated animate__fadeIn">
         <div class="settings-container">
             <div class="avatar-section">
                 <div class="avatar-container">
-                    <img th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar" id="avatar-preview">
+                    <img th:src="${user.avatar}" class="profile-avatar" id="avatar-preview">
                     <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;" onchange="previewAvatar(this)">
                     <button type="button" class="avatar-upload-button" onclick="document.getElementById('avatar').click()">
                         <i class="fas fa-camera"></i> Сменить аватар
@@ -34,6 +34,10 @@
                         <span>Настройки</span>
                     </h3>
 
+                    <div th:if="${errors}" class="error-message">
+                        <span>Ошибка: </span>
+                        <span th:text="${errors}"></span>
+                    </div>
                     <div class="settings-fields">
                         <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
                             <label for="name" class="form-label">Имя</label>
