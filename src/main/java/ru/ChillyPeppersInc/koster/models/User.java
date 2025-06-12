@@ -241,6 +241,10 @@ public class User {
         this.bio = bio;
     }
 
+    public String getAvatar() {
+        return avatar;
+    }
+
     public String getBio() {
         return bio;
     }

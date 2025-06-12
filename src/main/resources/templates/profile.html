@@ -13,8 +13,8 @@
 
     <div class="profile-page animate__animated animate__fadeIn">
         <div class="profile-sidebar">
-            <!-- <img th:src="${user.avatar} ?: @{/images/default-avatar.png}" class="profile-avatar"> -->
-            <img th:src="@{/images/default-avatar.jpg}" class="profile-avatar">
+            <img th:if="${user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
+            <img th:if="${user.avatar != null}" th:src="${user.avatar}" class="profile-avatar">
 
             <h2 class="profile-name">
                 <span th:text="${user.name}"></span>
@@ -74,18 +74,20 @@
                 <span class="comments-title" onclick="showComments()">
                     <i class="fas fa-comments"></i> Комментарии
                 </span>
+                <span class="add-post-btn" onclick="openCreatePostModal()" title="Добавить пост">
+                    <i class="fas fa-plus"></i>
+                </span>
             </h3>
 
             <div class="posts">
                 <div class="comment">
-                    <img th:src="@{/images/kamil.jpg}" class="comment-avatar">
+                    <img th:src="@{/images/avatars/kamil.jpg}" class="comment-avatar">
                     <div class="comment-content">
                         <div class="comment-header">
                             <span class="comment-author">Камиль Хуззятов</span>
                             <span class="comment-date">27.05.2025 в 22:20</span>
                         </div>
                         <p class="comment-text">Всем привет!!!</p>
-                        <img th:src="@{/images/kamil.jpg}" style="max-width: 300px;">
                         <div class="comment-actions">
                             <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
                         </div>
@@ -97,7 +99,7 @@
 
             <div class="comments">
                 <div class="comment">
-                    <img th:src="@{/images/anton.jpg}" class="comment-avatar">
+                    <img th:src="@{/images/avatars/anton.jpg}" class="comment-avatar">
                     <div class="comment-content">
                         <div class="comment-header">
                             <span class="comment-author">Антон Котельников</span>
@@ -114,6 +116,24 @@
 
 
         </div>
+    </div>
+
+    <!-- Добавьте этот код перед закрывающим тегом </body> -->
+    <div id="createPostModal" class="modal">
+      <div class="modal__content">
+        <button class="modal__close" onclick="closeCreatePostModal()" aria-label="Закрыть">&times;</button>
+        <div class="modal__header">
+          <h2 class="modal__title">Создать пост</h2>
+        </div>
+        <form id="postForm" class="post-form" method="POST" th:action="@{/api/post_create}" enctype="multipart/form-data">
+          <textarea id="content" name="content" class="post-form__textarea" placeholder="Что у вас нового?"></textarea>
+          <input type="file" id="image" name="image" accept="image/*">
+          <div class="modal__actions">
+            <button type="button" class="button button--secondary" onclick="closeCreatePostModal()">Отмена</button>
+            <button type="submit" class="button button--primary">Опубликовать</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <script th:src="@{/js/profile.js}"></script>

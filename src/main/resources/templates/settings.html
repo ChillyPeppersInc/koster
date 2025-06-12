@@ -12,59 +12,78 @@
 <body>
     <div th:insert="~{fragments/header :: header}"></div>
 
+    <form id="settings-form" th:object="${registrationDto}" method="POST" th:action="@{/settings}" enctype="multipart/form-data">
     <div class="settings-page animate__animated animate__fadeIn">
         <div class="settings-container">
             <div class="avatar-section">
                 <div class="avatar-container">
-                    <img th:src="@{/images/default-avatar.png}" class="profile-avatar" id="avatar-preview">
-                    <input type="file" id="avatar-upload" accept="image/*" style="display: none;">
-                    <button class="avatar-upload-button" onclick="document.getElementById('avatar-upload').click()">
+                    <img th:if="${user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar" id="avatar-preview">
+                    <img th:if="${user.avatar != null}" th:src="${user.avatar}" class="profile-avatar" id="avatar-preview">
+
+                    <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;" onchange="previewAvatar(this)">
+                    <button type="button" class="avatar-upload-button" onclick="document.getElementById('avatar').click()">
                         <i class="fas fa-camera"></i> Сменить аватар
                     </button>
-                    <button class="avatar-remove-button" id="remove-avatar">
+                    <button type="button" class="avatar-remove-button" id="remove-avatar">
                         <i class="fas fa-trash"></i> Удалить
                     </button>
                 </div>
             </div>
 
-            <!-- Блок с настройками справа -->
             <div class="settings-section">
-                <h3 class="section-title">
-                    <span><i class="fas fa-cog"></i></span>
-                    <span>Настройки</span>
-                </h3>
+                    <h3 class="section-title">
+                        <span><i class="fas fa-cog"></i></span>
+                        <span>Настройки</span>
+                    </h3>
 
-                <form id="settings-form" method="POST" th:action="@{/settings}">
+                    <div th:if="${errors}" class="error-message">
+                        <span>Ошибка: </span>
+                        <span th:text="${errors}"></span>
+                    </div>
                     <div class="settings-fields">
-                        <div class="form-group">
-                            <label for="name">Имя</label>
-                            <input type="text" id="name" th:value="${user.name}" class="form-input">
+                        <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
+                            <label for="name" class="form-label">Имя</label>
+                            <div class="input-group">
+                                <input th:value="${user.name}" type="text" class="form-control" id="name" name="name" required>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="surname">Фамилия</label>
-                            <input type="text" id="surname" th:value="${user.surname}" class="form-input">
+                        <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
+                            <label for="surname" class="form-label">Фамилия</label>
+                            <div class="input-group">
+                                <input th:value="${user.surname}" type="text" class="form-control" id="surname" name="surname" required>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="bio">О себе</label>
-                            <textarea id="bio" class="form-textarea" th:text="${user.bio}" placeholder="Расскажите о себе..."></textarea>
+                        <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
+                            <label for="bio" class="form-label">О себе</label>
+                            <div class="input-group">
+                                <textarea th:value="${user.bio}" type="text" class="form-control" id="bio" name="bio"></textarea>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="birthdate">Дата рождения</label>
-                            <input type="date" id="birthdate" th:value="${#temporals.format(user.birthdate, 'yyyy-MM-dd')}" class="form-input">
+                        <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
+                            <label for="academicGroup" class="form-label">Группа</label>
+                            <div class="input-group">
+                                <input th:value="${user.academicGroup}" type="text" class="form-control" id="academicGroup" name="academicGroup" required>
+                            </div>
+                        </div>
+
+                        <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
+                            <label for="birthdate" class="form-label">Дата рождения</label>
+                            <div class="input-group">
+                                <input th:value="${#temporals.format(user.birthdate, 'yyyy-MM-dd')}" type="date" class="form-control" id="birthdate" name="birthdate" required>
+                            </div>
                         </div>
 
                         <div class="form-actions">
-                            <button type="button" class="cancel-button">Отмена</button>
                             <button type="submit" class="save-button">Сохранить изменения</button>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </div>
+    </form>
 
     <script th:src="@{/js/settings.js}"></script>
 </body>

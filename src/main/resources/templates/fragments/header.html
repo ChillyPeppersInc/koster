@@ -38,14 +38,11 @@
                         <div id="authUserSection">
                             <div class="dropdown">
                                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <!-- <span th:if="${user.avatar == null}">
-                                        <img th:src="@{/images/kamil.jpg}" class="rounded-circle me-2" width="50" height="50">
+                                    <span th:if="${user.avatar == null}">
+                                        <img th:src="@{/images/avatars/default-avatar.png}" class="rounded-circle me-2" width="50" height="50">
                                     </span>
                                     <span th:if="${user.avatar != null}">
                                         <img th:src="${user.avatar}" class="rounded-circle me-2" width="50" height="50">
-                                    </span> -->
-                                    <span>
-                                        <img th:src="@{/images/default-avatar.jpg}" class="rounded-circle me-2" width="50" height="50">
                                     </span>
 
                                     <span id="usernameDisplay" class="text-white" th:text="${user.name}"></span>
