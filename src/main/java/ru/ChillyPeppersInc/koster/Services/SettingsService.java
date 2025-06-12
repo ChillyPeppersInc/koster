@@ -20,7 +20,7 @@ import java.util.UUID;
 @Service
 public class SettingsService {
     private final UsersRepository userRepository;
-    private static final String UPLOAD_DIR = "static/images/avatars/";
+    private static final String UPLOAD_DIR = "src/main/resources/static/images/avatars/";
 
     public SettingsService(UsersRepository userRepository) {
         this.userRepository = userRepository;
@@ -33,7 +33,7 @@ public class SettingsService {
         user.setAcademicGroup(settingsDto.academicGroup());
         user.setBio(settingsDto.bio());
         user.setUpdatedAt(LocalDate.now());
-        user.setAvatar(getImage(settingsDto));
+        user.setAvatar("images/avatars/" + getImage(settingsDto));
 
         userRepository.save(user);
 

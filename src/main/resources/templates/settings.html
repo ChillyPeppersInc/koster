@@ -17,7 +17,9 @@
         <div class="settings-container">
             <div class="avatar-section">
                 <div class="avatar-container">
-                    <img th:src="${user.avatar}" class="profile-avatar" id="avatar-preview">
+                    <img th:if="${user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar" id="avatar-preview">
+                    <img th:if="${user.avatar != null}" th:src="${user.avatar}" class="profile-avatar" id="avatar-preview">
+
                     <input type="file" id="avatar" name="avatar" accept="image/*" style="display: none;" onchange="previewAvatar(this)">
                     <button type="button" class="avatar-upload-button" onclick="document.getElementById('avatar').click()">
                         <i class="fas fa-camera"></i> Сменить аватар

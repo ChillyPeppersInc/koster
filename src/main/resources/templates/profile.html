@@ -13,7 +13,8 @@
 
     <div class="profile-page animate__animated animate__fadeIn">
         <div class="profile-sidebar">
-            <img th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
+            <img th:if="${user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
+            <img th:if="${user.avatar != null}" th:src="${user.avatar}" class="profile-avatar">
 
             <h2 class="profile-name">
                 <span th:text="${user.name}"></span>
@@ -63,362 +64,78 @@
             </div>
         </div>
 
-        <div class="profile-content">
-            <!-- Форма создания нового поста -->
-            <form id="settings-form" method="POST" th:action="@{/api/post_create}">
-            <div class="create-post">
-                <div class="post-form">
-                    <textarea id="content" name="content" placeholder="Что у вас нового?" rows="3"></textarea>
-                    <div class="post-actions">
-                        <div class="post-attachments">
-                            <label for="post-image" class="attachment-button">
-                                <i class="fas fa-image"></i>
-                                <input type="file" id="post-image" accept="image/*" style="display: none;">
-                            </label>
-                            <span id="image-name" style="display: none;"></span>
+
+        <div class="comments-section" style="max-height: 632px; overflow-y: auto;">
+            <h3 class="section-title">
+                <span class="posts-title" onclick="showPosts()">
+                    <i class="fas fa-bullhorn"></i> Публикации
+                </span>
+                <i style="padding-right: 15px"></i>
+                <span class="comments-title" onclick="showComments()">
+                    <i class="fas fa-comments"></i> Комментарии
+                </span>
+                <span class="add-post-btn" onclick="openCreatePostModal()" title="Добавить пост">
+                    <i class="fas fa-plus"></i>
+                </span>
+            </h3>
+
+            <div class="posts">
+                <div class="comment">
+                    <img th:src="@{/images/avatars/kamil.jpg}" class="comment-avatar">
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">Камиль Хуззятов</span>
+                            <span class="comment-date">27.05.2025 в 22:20</span>
                         </div>
-                        <button type="submit" class="post-button" onclick="createPost()">Опубликовать</button>
-                    </div>
-                </div>
-            </div>
-        </form>
-
-            <div class="comments-section" style="max-height: 632px; overflow-y: auto;">
-                <h3 class="section-title">
-                    <span class="posts-title active" onclick="showPosts()">
-                        <i class="fas fa-bullhorn"></i> Публикации
-                    </span>
-                    <i style="padding-right: 15px"></i>
-                    <span class="comments-title" onclick="showComments()">
-                        <i class="fas fa-comments"></i> Комментарии
-                    </span>
-                </h3>
-
-                <div class="posts" id="posts-container">
-                    <!-- Посты будут добавляться сюда -->
-                    <div class="comment">
-                        <img th:src="@{/images/kamil.jpg}" class="comment-avatar">
-                        <div class="comment-content">
-                            <div class="comment-header">
-                                <span class="comment-author">Камиль Хуззятов</span>
-                                <span class="comment-date">27.05.2025 в 22:20</span>
-                            </div>
-                            <p class="comment-text">Всем привет!!!</p>
-                            <img th:src="@{/images/kamil.jpg}" style="max-width: 300px;">
-                            <div class="comment-actions">
-                                <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="comments" style="display: none;">
-                    <div class="comment">
-                        <img th:src="@{/images/anton.jpg}" class="comment-avatar">
-                        <div class="comment-content">
-                            <div class="comment-header">
-                                <span class="comment-author">Антон Котельников</span>
-                                <span class="comment-date">27.05.2025 в 22:20</span>
-                            </div>
-                            <p class="comment-text">привет</p>
-                            <div class="comment-actions">
-                                <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
-                                <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
-                            </div>
+                        <p class="comment-text">Всем привет!!!</p>
+                        <div class="comment-actions">
+                            <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+
+            <div class="comments">
+                <div class="comment">
+                    <img th:src="@{/images/avatars/anton.jpg}" class="comment-avatar">
+                    <div class="comment-content">
+                        <div class="comment-header">
+                            <span class="comment-author">Антон Котельников</span>
+                            <span class="comment-date">27.05.2025 в 22:20</span>
+                        </div>
+                        <p class="comment-text">привет</p>
+                        <div class="comment-actions">
+                            <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
+                            <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 
+    <!-- Добавьте этот код перед закрывающим тегом </body> -->
+    <div id="createPostModal" class="modal">
+      <div class="modal__content">
+        <button class="modal__close" onclick="closeCreatePostModal()" aria-label="Закрыть">&times;</button>
+        <div class="modal__header">
+          <h2 class="modal__title">Создать пост</h2>
+        </div>
+        <form id="postForm" class="post-form" method="POST" th:action="@{/api/post_create}" enctype="multipart/form-data">
+          <textarea id="content" name="content" class="post-form__textarea" placeholder="Что у вас нового?"></textarea>
+          <input type="file" id="image" name="image" accept="image/*">
+          <div class="modal__actions">
+            <button type="button" class="button button--secondary" onclick="closeCreatePostModal()">Отмена</button>
+            <button type="submit" class="button button--primary">Опубликовать</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
     <script th:src="@{/js/profile.js}"></script>
-    <script>
-        // Обработчик загрузки изображения
-        document.getElementById('post-image').addEventListener('change', function(e) {
-            const fileName = e.target.files[0]?.name;
-            if (fileName) {
-                document.getElementById('image-name').textContent = fileName;
-                document.getElementById('image-name').style.display = 'inline';
-            }
-        });
-
-        // Функция создания поста
-        function createPost() {
-            const postText = document.getElementById('post-text').value;
-            const imageInput = document.getElementById('post-image');
-
-            if (!postText.trim() && !imageInput.files[0]) {
-                alert('Пост не может быть пустым!');
-                return;
-            }
-
-            const postContainer = document.getElementById('posts-container');
-            const newPost = document.createElement('div');
-            newPost.className = 'comment';
-
-            // Текущая дата и время
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('ru-RU') + ' в ' + now.toLocaleTimeString('ru-RU', {hour: '2-digit', minute:'2-digit'});
-
-            newPost.innerHTML = `
-                <img th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
-                <div class="comment-content">
-                    <div class="comment-header">
-                        <span class="comment-author"><span th:text="${user.name}"></span> <span th:text="${user.surname}"></span></span>
-                        <span class="comment-date">${dateStr}</span>
-                    </div>
-                    <p class="comment-text">${postText}</p>
-                    ${imageInput.files[0] ? `<img src="${URL.createObjectURL(imageInput.files[0])}" style="max-width: 300px;">` : ''}
-                    <div class="comment-actions">
-                        <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
-                    </div>
-                </div>
-            `;
-
-            // Добавляем новый пост в начало списка
-            postContainer.insertBefore(newPost, postContainer.firstChild);
-
-            // Очищаем форму
-            document.getElementById('post-text').value = '';
-            imageInput.value = '';
-            document.getElementById('image-name').style.display = 'none';
-        }
-
-        // Функции переключения между постами и комментариями
-        function showPosts() {
-            document.querySelector('.posts').style.display = 'block';
-            document.querySelector('.comments').style.display = 'none';
-            document.querySelector('.posts-title').classList.add('active');
-            document.querySelector('.comments-title').classList.remove('active');
-        }
-
-        function showComments() {
-            document.querySelector('.posts').style.display = 'none';
-            document.querySelector('.comments').style.display = 'block';
-            document.querySelector('.posts-title').classList.remove('active');
-            document.querySelector('.comments-title').classList.add('active');
-        }
-
-        function handleLike(element) {
-            const likeCount = element.querySelector('.like-count');
-            const icon = element.querySelector('i');
-
-            if (element.classList.contains('liked')) {
-                likeCount.textContent = parseInt(likeCount.textContent) - 1;
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                element.classList.remove('liked');
-            } else {
-                likeCount.textContent = parseInt(likeCount.textContent) + 1;
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                element.classList.add('liked');
-            }
-        }
-    </script>
-    <style>
-    /* Общие стили для профиля */
-    .profile-page {
-        display: flex;
-        max-width: 1200px;
-        margin: 20px auto;
-        gap: 20px;
-    }
-
-    .profile-sidebar {
-        width: 300px;
-        padding: 20px;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .profile-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    /* Стили для формы создания поста */
-    .create-post {
-        background: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .post-form {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    #post-text {
-        width: 100%;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        resize: none;
-        font-family: inherit;
-        font-size: 14px;
-    }
-
-    #post-text:focus {
-        outline: none;
-        border-color: #4a76a8;
-    }
-
-    .post-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    .post-attachments {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-    }
-
-    .attachment-button {
-        cursor: pointer;
-        color: #4a76a8;
-        font-size: 20px;
-        padding: 5px;
-        border-radius: 50%;
-        transition: background 0.2s;
-    }
-
-    .attachment-button:hover {
-        background: #f0f2f5;
-    }
-
-    #image-name {
-        font-size: 12px;
-        color: #656565;
-    }
-
-    .post-button {
-        background: #4a76a8;
-        color: white;
-        border: none;
-        padding: 8px 15px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-weight: 500;
-        transition: background 0.2s;
-    }
-
-    .post-button:hover {
-        background: #3a5f8a;
-    }
-
-    /* Стили для вкладок */
-    .section-title {
-        display: flex;
-        margin-bottom: 15px;
-        border-bottom: 1px solid #e7e8ec;
-        padding-bottom: 10px;
-    }
-
-    .posts-title, .comments-title {
-        cursor: pointer;
-        padding: 5px 10px;
-        border-radius: 4px;
-        color: #656565;
-        transition: all 0.2s;
-    }
-
-    .posts-title:hover, .comments-title:hover {
-        background: #f0f2f5;
-    }
-
-    .posts-title.active, .comments-title.active {
-        color: #4a76a8;
-        font-weight: 500;
-    }
-
-    /* Стили для постов */
-    .comment {
-        display: flex;
-        gap: 12px;
-        padding: 15px;
-        background: #fff;
-        border-radius: 10px;
-        margin-bottom: 15px;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    }
-
-    .comment-avatar {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
-
-    .comment-content {
-        flex: 1;
-    }
-
-    .comment-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 5px;
-    }
-
-    .comment-author {
-        font-weight: 500;
-        color: #2a5885;
-    }
-
-    .comment-date {
-        font-size: 12px;
-        color: #656565;
-    }
-
-    .comment-text {
-        margin: 8px 0;
-        line-height: 1.4;
-    }
-
-    .comment-actions {
-        display: flex;
-        gap: 15px;
-        margin-top: 10px;
-    }
-
-    .comment-action {
-        font-size: 13px;
-        color: #656565;
-        cursor: pointer;
-        transition: color 0.2s;
-    }
-
-    .comment-action:hover {
-        color: #4a76a8;
-    }
-
-    .like-button {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    .like-button.liked {
-        color: #4a76a8;
-    }
-
-    /* Анимации */
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    .comment {
-        animation: fadeIn 0.3s ease-in-out;
-    }
-</style>
 </body>
 </html>

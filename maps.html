@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выбор точки на карте</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        #map {
+            width: 100%;
+            height: 80vh;
+        }
+        #coordinates {
+            padding: 10px;
+            background: #f0f0f0;
+            text-align: center;
+        }
+        h1 {
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Выберите точку на карте</h1>
+    <div id="map"></div>
+    <div id="coordinates">
+        <p>Координаты выбранной точки: <span id="coords">не выбраны</span></p>
+    </div>
+
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=39f06ba3-21d4-452d-a525-0a037274147b&lang=ru_RU" type="text/javascript"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация карты
+            ymaps.ready(init);
+
+            function init() {
+                var myMap = new ymaps.Map("map", {
+                    center: [55.792159, 49.122014], // двойка
+                    zoom: 17
+                });
+                
+                // Создаем маркер
+                var myPlacemark;
+                
+                // Слушаем клик на карте
+                myMap.events.add('click', function (e) {
+                    var coords = e.get('coords');
+                    
+                    // Если маркер уже есть, удаляем его
+                    if (myPlacemark) {
+                        myMap.geoObjects.remove(myPlacemark);
+                    }
+                    
+                    // Создаем новый маркер
+                    myPlacemark = new ymaps.Placemark(coords, {
+                        hintContent: 'Выбранная точка',
+                        balloonContent: 'Координаты: ' + coords
+                    }, {
+                        preset: 'islands#redDotIcon'
+                    });
+                    
+                    // Добавляем маркер на карту
+                    myMap.geoObjects.add(myPlacemark);
+                    
+                    // Выводим координаты в div
+                    document.getElementById('coords').textContent = coords.join(', ');
+                    
+                    // Можно также вывести в консоль для отладки
+                    console.log('Выбранные координаты:', coords);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

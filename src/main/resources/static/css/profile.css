@@ -55,11 +55,10 @@
 .info-item:last-child {
     margin-bottom: 0;
 }
+
 .info-icon {
-    width: 36px;
-    height: 36px;
-    background: rgba(204, 122, 0, 0.1);
-    border-radius: 50%;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -207,6 +206,145 @@
     color: var(--light-color);
 }
 
+    .section-title {
+        position: relative; /* Делаем контейнер относительным для позиционирования кнопки */
+        display: flex;
+        align-items: center;
+    }
+
+    .add-post-btn {
+        position: absolute;
+        right: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: var(--light-color);
+        transition: all 0.2s ease;
+    }
+
+    .add-post-btn:hover {
+        transform: scale(1.1);
+    }
+
+    .add-post-btn i {
+        font-size: 30px;
+    }
+
+:root {
+  --color-primary: #4a90e2;
+  --color-primary-hover: #3a7bc8;
+  --color-text: #333;
+  --color-text-light: #999;
+  --color-border: #ddd;
+  --color-bg-light: #f5f5f5;
+  --color-bg-light-hover: #eaeaea;
+  --color-white: #fff;
+}
+
+/* Базовый сброс для модального окна */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  place-items: center;
+  padding: 1rem;
+
+  margin-top: 100px;
+
+}
+
+.modal__content {
+  --modal-padding: 1.25rem;
+
+  position: relative;
+  width: min(100%, 900px);
+  background-color: var(--light-color);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: var(--modal-padding);
+}
+
+.modal__header {
+  margin-bottom: 1.25rem;
+}
+
+.modal__title {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--dark-color);
+}
+
+.modal__close {
+  position: absolute;
+  top: var(--modal-padding);
+  right: var(--modal-padding);
+  font-size: 1.5rem;
+  color: var(--dark-color);
+  cursor: pointer;
+  transition: color 0.2s ease;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.modal__close:hover {
+  color: var(--dark-color);
+}
+
+/* Форма */
+.post-form__textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 0.75rem;
+  border: 1px solid var(--dark-color);
+  border-radius: 4px;
+  resize: vertical;
+  font: inherit;
+  margin-bottom: 1.25rem;
+}
+
+.post-form__textarea:focus {
+  outline: 2px solid transparent;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Кнопки */
+.modal__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.button--primary {
+  background-color: var(--primary-color);
+  color: var(--light-color);
+  border: none;
+}
+
+.button--primary:hover {
+  background-color: var(--primary-color-hover);
+}
+
+.button--secondary {
+  background-color: var(--light-color);
+  color: var(--color-text);
+  border: 1px solid var(--dark-color);
+}
 
 
 @media (max-width: 992px) {
