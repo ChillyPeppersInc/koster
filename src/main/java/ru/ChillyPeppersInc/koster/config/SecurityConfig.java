@@ -13,13 +13,12 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @Configuration
 public class SecurityConfig {
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
                         // Разрешаем доступ БЕЗ авторизации:
-                        .requestMatchers("/", "/index", "/login", "/register", "password_reset",
+                        .requestMatchers("/", "/index", "/login", "/register", "/password_reset",
                                 "/static/**",
                                 "/css/**",
                                 "/js/**",

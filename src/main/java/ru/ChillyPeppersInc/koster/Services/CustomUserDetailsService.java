@@ -10,7 +10,7 @@ import ru.ChillyPeppersInc.koster.repositories.UsersRepository;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final UsersRepository userRepository; // Ваш репозиторий
+    private final UsersRepository userRepository;
 
     public CustomUserDetailsService(UsersRepository userRepository) {
         this.userRepository = userRepository;

@@ -1,10 +1,14 @@
 package ru.ChillyPeppersInc.koster.controllers;
 
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.ChillyPeppersInc.koster.Services.FileStorageService;
@@ -15,6 +19,7 @@ import ru.ChillyPeppersInc.koster.models.User;
 
 
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
@@ -36,10 +41,18 @@ public class PostController {
 
     @PostMapping("/post_create")
     public ResponseEntity<?> createPost(
-            @AuthenticationPrincipal User currentUser,
+            Principal principal,
             @RequestParam("content") String content,
             @RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestParam(value = "geolocation", required = false) String geolocation) {
+            @RequestParam(value = "geolocation", required = false) String geolocation,
+            HttpServletRequest request,
+            HttpServletResponse response) {
+
+        String username = principal.getName();
+        User currentUser = userService.findByUsername(username).
+                orElseThrow(() -> new UsernameNotFoundException(username));
+
+
         try {
             // Создаем пост
             Post post = new Post();
@@ -62,7 +75,8 @@ public class PostController {
 
             currentUser.getPosts().add(post);
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedPost);
+            response.sendRedirect("/profile");
+            return null;
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Ошибка при загрузке изображения");
