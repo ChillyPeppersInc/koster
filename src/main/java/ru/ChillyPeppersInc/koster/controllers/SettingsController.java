@@ -60,10 +60,10 @@ public class SettingsController {
         try {
             settingsService.updateUser(user, settingsDto);
             model.addAttribute("success", "Настройки успешно обновлены");
-            return "redirect:/settings?success";
+            return "redirect:/profile";
         } catch (Exception e) {
-            model.addAttribute("error", "Ошибка при загрузке аватара");
-            return "redirect:/settings?failed";
+            model.addAttribute("error", e.getMessage());
+            return "settings";
         }
     }
 

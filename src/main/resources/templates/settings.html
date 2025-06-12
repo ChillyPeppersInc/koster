@@ -36,9 +36,9 @@
                         <span>Настройки</span>
                     </h3>
 
-                    <div th:if="${errors}" class="error-message">
+                    <div th:if="${error}" class="error-message">
                         <span>Ошибка: </span>
-                        <span th:text="${errors}"></span>
+                        <span th:text="${error}"></span>
                     </div>
                     <div class="settings-fields">
                         <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">

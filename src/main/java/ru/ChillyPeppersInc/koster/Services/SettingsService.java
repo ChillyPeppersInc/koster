@@ -33,8 +33,11 @@ public class SettingsService {
         user.setAcademicGroup(settingsDto.academicGroup());
         user.setBio(settingsDto.bio());
         user.setUpdatedAt(LocalDate.now());
-        user.setAvatar("images/avatars/" + getImage(settingsDto));
-
+        try {
+            user.setAvatar("images/avatars/" + getImage(settingsDto));
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
         userRepository.save(user);
 
         return 1;
