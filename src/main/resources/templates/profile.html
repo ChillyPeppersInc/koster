@@ -88,9 +88,7 @@
                         <div class="comment-header">
                             <span th:text="${post.user.name} + ' ' + ${post.user.surname}" class="comment-author"></span>
                             <span class="comment-date">
-                                <span th:text="${#temporals.format(post.createdAt, 'dd.MM.yyyy')}"></span>
-                                <span> в </span>
-                                <span th:text="${#temporals.format(post.createdAt, 'HH:mm')}"></span>
+                                <!-- потом сделать дату-->
                             </span>
                         </div>
                         <p th:text="${post.content}" class="comment-text"></p>
