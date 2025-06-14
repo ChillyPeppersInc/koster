@@ -73,7 +73,6 @@ public class PostController {
                 postService.updatePost(savedPost);
             }
 
-            currentUser.getPosts().add(post);
 
             response.sendRedirect("/profile");
             return null;

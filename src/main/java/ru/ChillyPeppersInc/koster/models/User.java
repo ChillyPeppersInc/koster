@@ -267,5 +267,6 @@ public class User {
 
     public int getId() {return id;}
 
-    public List<Post> getPosts() {return posts;}
+    public List<Post> getPosts() {return posts.reversed();}
+
 }

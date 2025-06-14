@@ -79,7 +79,7 @@
                 </span>
             </h3>
 
-            <div th:each="post : ${user.posts}" class="posts">
+            <div th:each="post : ${user.getPosts()}" class="posts">
                 <div class="comment">
                     <img th:if="${post.user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
                     <img th:if="${post.user.avatar != null}" th:src="${post.user.avatar}" class="comment-avatar">

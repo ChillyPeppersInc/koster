@@ -68,4 +68,14 @@ public class UserService {
     public Optional<User> findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    public Optional<User> findByUsernameOrId(String username) {
+        int userId;
+        try{
+            userId = Integer.parseInt(username);
+        } catch (NumberFormatException e) {
+            return userRepository.findByUsername(username);
+        }
+        return userRepository.findById(userId);
+    }
 }
