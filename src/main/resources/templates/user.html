@@ -13,32 +13,32 @@
 
     <div class="profile-page animate__animated animate__fadeIn">
         <div class="profile-sidebar">
-            <img th:if="${user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
-            <img th:if="${user.avatar != null}" th:src="${user.avatar}" class="profile-avatar">
+            <img th:if="${profileUser.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
+            <img th:if="${profileUser.avatar != null}" th:src="${profileUser.avatar}" class="profile-avatar">
 
             <h2 class="profile-name">
-                <span th:text="${user.name}"></span>
-                <span th:text="${user.surname}"></span>
+                <span th:text="${profileUser.name}"></span>
+                <span th:text="${profileUser.surname}"></span>
             </h2>
-            <p class="profile-username" th:text="'@' + ${user.username}"></p>
+            <p class="profile-username" th:text="'@' + ${profileUser.username}"></p>
             <div class="profile-follows">
                 <span class="follows-count">
-                    <a th:href="@{/followers}" th:text="${user.followersCount} + ' подписчиков'" class="follow-link"></a>
+                    <a th:href="@{/followers}" th:text="${profileUser.followersCount} + ' подписчиков'" class="follow-link"></a>
                 </span>
                  |
                 <span class="follows-count">
-                    <a th:href="@{/follows}" th:text="${user.followersCount} + ' подписок'" class="follow-link"></a>
+                    <a th:href="@{/follows}" th:text="${profileUser.followersCount} + ' подписок'" class="follow-link"></a>
                 </span>
             </div>
 
             <div class="profile-info">
-                <div class="info-item" th:if="${user.bio != null && user.bio.length() != 0}">
+                <div class="info-item" th:if="${profileUser.bio != null && profileUser.bio.length() != 0}">
                     <div class="info-icon">
                         <i class="fas fa-user"></i>
                     </div>
                     <div class="info-content">
                         <div class="info-label">О себе</div>
-                        <div class="info-value" th:text="${user.bio}"></div>
+                        <div class="info-value" th:text="${profileUser.bio}"></div>
                     </div>
                 </div>
 
@@ -48,7 +48,7 @@
                     </div>
                     <div class="info-content">
                         <div class="info-label">Группа</div>
-                        <div class="info-value" th:text="${user.academicGroup}"></div>
+                        <div class="info-value" th:text="${profileUser.academicGroup}"></div>
                     </div>
                 </div>
 
@@ -58,7 +58,7 @@
                     </div>
                     <div class="info-content">
                         <div class="info-label">Дата рождения</div>
-                        <div class="info-value" th:text="${#temporals.format(user.birthdate, 'dd.MM.yyyy')}"></div>
+                        <div class="info-value" th:text="${#temporals.format(profileUser.birthdate, 'dd.MM.yyyy')}"></div>
                     </div>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 </span>
             </h3>
 
-            <div th:each="post : ${user.posts}" class="posts">
+            <div th:each="post : ${profileUser.posts}" class="posts">
                 <div class="comment">
                     <img th:if="${post.user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
                     <img th:if="${post.user.avatar != null}" th:src="${post.user.avatar}" class="comment-avatar">
