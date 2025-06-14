@@ -28,7 +28,6 @@ public class Post {
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past
     private Date createdAt;
 
     @Column(name = "updated_at")
