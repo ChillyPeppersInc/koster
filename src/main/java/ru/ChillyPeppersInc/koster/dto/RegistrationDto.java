@@ -14,7 +14,7 @@ public record RegistrationDto(
 
         @NotBlank(message = "Логин должен быть заполнен")
         @Size(min = 3, max = 20, message = "Длина логина должна быть между 3 и 50 символами")
-        @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Логин может содержать только буквы, цифры и нижние подчеркивания")
+        @Pattern(regexp = "^(?!\\\\d+$)[a-zA-Z0-9_]+$", message = "Логин может содержать только буквы, цифры и нижние подчеркивания")
         String username,
 
         @NotBlank(message = "Почта должна быть заполнена")
