@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "Reactions")
-public class Reaction {
+public class Like {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,8 +21,9 @@ public class Reaction {
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
 
-    @Column(name = "is_like")
-    private boolean isLike;
+    @JoinColumn(name = "comment_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Comment comment;
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -42,12 +43,12 @@ public class Reaction {
     @Column(name = "status")
     private String status;
 
-    public Reaction() {}
+    public Like() {}
 
-    public Reaction(User user, Post post, boolean isLike, Date createdAt, Date updatedAt, Date deletedAt, String status) {
+    public Like(User user, Post post, Comment comment, Date createdAt, Date updatedAt, Date deletedAt, String status) {
         this.user = user;
         this.post = post;
-        this.isLike = isLike;
+        this.comment = comment;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
@@ -70,12 +71,12 @@ public class Reaction {
         this.post = post;
     }
 
-    public boolean isLike() {
-        return isLike;
+    public Comment getComment() {
+        return comment;
     }
 
-    public void setLike(boolean like) {
-        isLike = like;
+    public void setComment(Comment comment) {
+        this.comment = comment;
     }
 
     public Date getCreatedAt() {
