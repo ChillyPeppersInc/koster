@@ -304,7 +304,21 @@
   border-radius: 4px;
   resize: vertical;
   font: inherit;
-  margin-bottom: 1.25rem;
+}
+
+.upload-image-button {
+    color: var(--dark-color);
+    font-weight: 650;
+    margin-bottom: 10px;
+}
+.geo-add-button {
+    color: var(--dark-color);
+    font-weight: 650;
+}
+#map {
+    max-width: fit-content;
+    width: 800px;
+    height: 600px;
 }
 
 .post-form__textarea:focus {
@@ -359,5 +373,9 @@
     }
     .comments-section {
         width: 100%;
+    }
+    .section-title {
+        font-size: 15px;
+        font-weight: 500;
     }
 }
