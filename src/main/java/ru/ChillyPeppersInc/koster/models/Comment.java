@@ -25,7 +25,6 @@ public class Comment {
 
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    @Past
     private LocalDate createdAt;
 
     @Column(name = "updated_at")

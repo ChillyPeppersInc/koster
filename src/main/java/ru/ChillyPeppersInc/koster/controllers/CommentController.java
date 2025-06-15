@@ -33,23 +33,23 @@ public class CommentController {
         this.userService = userService;
     }
 
-    @PostMapping("/comment_create/")
+    @PostMapping("/comment_create")
     public ResponseEntity<?> createComment(
             Principal principal,
-            @RequestParam("user_id") int user_id,
+            @RequestParam("username") String userName,
             @RequestParam("content") String content,
             @RequestParam(value = "image", required = false) MultipartFile image,
             HttpServletResponse response) {
 
         String username = principal.getName();
-        User currentUser = userService.findById(user_id).
+        User currentUser = userService.findByUsername(userName).
                 orElseThrow(() -> new UsernameNotFoundException(username));
 
         Comment newComment = commentService.createComment(currentUser, content);
 
         try {
             commentService.attachImageToComment(newComment, image);
-            response.sendRedirect("/user/" + user_id);
+            response.sendRedirect("/user/" + username);
             return null;
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

@@ -58,7 +58,7 @@
                         <div class="mb-3 animate__animated animate__fadeIn animate-delay-1">
                             <label for="bio" class="form-label">О себе</label>
                             <div class="input-group">
-                                <textarea th:value="${user.bio}" type="text" class="form-control" id="bio" name="bio"></textarea>
+                                <textarea th:text="${user.bio}" type="text" class="form-control" id="bio" name="bio"></textarea>
                             </div>
                         </div>
 
