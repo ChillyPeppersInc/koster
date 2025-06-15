@@ -26,7 +26,7 @@ public class UserController {
     @GetMapping("/register")
     public String showRegistrationPage(Model model, Authentication authentication) {
         if (authentication != null && authentication.isAuthenticated()) {
-            return "redirect:/";
+            return "redirect:/feed";
         }
         model.addAttribute("registartionDTO", new RegistrationDto("", "", "", "", "", "", ""));
         return "register";
