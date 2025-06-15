@@ -69,6 +69,10 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    public Optional<User> findById(int id) {
+        return userRepository.findById(id);
+    }
+
     public Optional<User> findByUsernameOrId(String username) {
         int userId;
         try{

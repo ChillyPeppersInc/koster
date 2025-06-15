@@ -79,8 +79,8 @@
                 </span>
             </h3>
 
-            <div th:each="post : ${user.getPosts()}" class="posts">
-                <div class="comment">
+            <div class="posts">
+                <div th:each="post : ${user.getPosts()}" class="comment">
                     <img th:if="${post.user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
                     <img th:if="${post.user.avatar != null}" th:src="${post.user.avatar}" class="comment-avatar">
 
@@ -92,28 +92,13 @@
                             </span>
                         </div>
                         <p th:text="${post.content}" class="comment-text"></p>
+                        <img th:if="${post.image != null}" th:src="${post.image}" style="max-width: 300px;">
                         <div class="comment-actions">
                             <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
                         </div>
                     </div>
                 </div>
-
-                <!--<div class="comment">
-                    <img th:src="@{/images/avatars/kamil.jpg}" class="comment-avatar">
-                    <div class="comment-content">
-                        <div class="comment-header">
-                            <span class="comment-author">Камиль Хуззятов</span>
-                            <span class="comment-date">27.05.2025 в 22:20</span>
-                        </div>
-                        <p class="comment-text">Всем привет!!!</p>
-                        <div class="comment-actions">
-                            <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
-                        </div>
-                    </div>
-                </div>-->
             </div>
-
-
 
             <div class="comments">
                 <div class="comment">
@@ -145,7 +130,19 @@
         </div>
         <form id="postForm" class="post-form" method="POST" th:action="@{/api/post_create}" enctype="multipart/form-data">
           <textarea id="content" name="content" class="post-form__textarea" placeholder="Что у вас нового?"></textarea>
-          <input type="file" id="image" name="image" accept="image/*">
+          <div class="upload-image-button" onclick="document.getElementById('image').click()">
+            <input type="file" id="image" name="image" accept="image/*" style="display: none">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+            <span>Загрузить изображение</span>
+          </div>
+          <div class="geo-add-button">
+              <input type="text" id="geoposition" name="geoposition" value="" style="display: none">
+              <input type="checkbox" id="share-location" onclick="processGeoposition(this)">
+              <span>Поделиться геопозицией</span>
+          </div>
+          <div id="geo-map" style="display: none">
+            <div id="map"></div>
+          </div>
           <div class="modal__actions">
             <button type="button" class="button button--secondary" onclick="closeCreatePostModal()">Отмена</button>
             <button type="submit" class="button button--primary">Опубликовать</button>
@@ -155,5 +152,8 @@
     </div>
 
     <script th:src="@{/js/profile.js}"></script>
+    <script th:src="@{/js/maps.js}"></script>
+    <script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=39f06ba3-21d4-452d-a525-0a037274147b&lang=ru_RU" type="text/javascript"></script>
 </body>
 </html>
