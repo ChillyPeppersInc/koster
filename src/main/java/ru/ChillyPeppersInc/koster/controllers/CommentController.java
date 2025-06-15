@@ -35,21 +35,29 @@ public class CommentController {
 
     @PostMapping("/comment_create")
     public ResponseEntity<?> createComment(
-            Principal principal,
-            @RequestParam("username") String userName,
+            Principal principal, // кто пишет
+            @RequestParam("username") String ownerUsername, // кому пишут
             @RequestParam("content") String content,
+            @RequestParam("isAnonimous") boolean isAnonimous,
             @RequestParam(value = "image", required = false) MultipartFile image,
             HttpServletResponse response) {
 
-        String username = principal.getName();
-        User currentUser = userService.findByUsername(userName).
-                orElseThrow(() -> new UsernameNotFoundException(username));
+        String writerUsername = principal.getName();
+        User ownerUser = userService.findByUsername(ownerUsername).
+                orElseThrow(() -> new UsernameNotFoundException(writerUsername));
+        User writerUser;
+        if (!isAnonimous) {
+            writerUser = userService.findByUsername(writerUsername).
+                    orElseThrow(() -> new UsernameNotFoundException(writerUsername));
+        } else {
+            writerUser = null;
+        }
 
-        Comment newComment = commentService.createComment(currentUser, content);
+        Comment newComment = commentService.createComment(ownerUser, writerUser, content, isAnonimous);
 
         try {
             commentService.attachImageToComment(newComment, image);
-            response.sendRedirect("/user/" + username);
+            response.sendRedirect("/user/" + ownerUsername);
             return null;
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

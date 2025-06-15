@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class User {
     private List<Post> posts;
 
     @OneToMany(mappedBy = "user")
-    private List<Comment> comments;
+    private ArrayList<Comment> comments;
 
     @NotEmpty(message = "Username shouldn't be empty")
     @Size(min = 3, max = 50, message = "Username length should be between 3 and 20")
@@ -95,7 +96,7 @@ public class User {
     private String status;
 
 
-    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, String academicGroup, String bio, int followersCount, int followsCount, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status) {
+    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, String academicGroup, String bio, int followersCount, int followsCount, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status, ArrayList<Comment> comments) {
         this.posts = posts;
         this.username = username;
         this.name = name;
@@ -114,6 +115,7 @@ public class User {
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
         this.status = status;
+        this.comments = comments;
     }
 
     public User() {
@@ -276,7 +278,11 @@ public class User {
 
     public List<Post> getPosts() {return posts.reversed();}
 
-    public List<Comment> getComments() {
-        return comments.reversed();
+    public ArrayList<Comment> getComments() {
+        return new ArrayList<Comment>(comments.reversed());
+    }
+
+    public void addComment(Comment comment) {
+        comments.add(comment);
     }
 }

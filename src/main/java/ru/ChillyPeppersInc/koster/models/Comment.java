@@ -42,9 +42,12 @@ public class Comment {
     @Column(name = "likes")
     private int likes;
 
+    @Column(name = "isAnonimous")
+    private boolean isAnonimous;
+
     public Comment() {}
 
-    public Comment(User user, String content, String image, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status) {
+    public Comment(User user, String content, String image, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status, boolean isAnonimous, int likes) {
         this.user = user;
         this.content = content;
         this.image = image;
@@ -52,7 +55,8 @@ public class Comment {
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
         this.status = status;
-        this.likes = 0;
+        this.isAnonimous = isAnonimous;
+        this.likes = likes;
     }
 
     public int getId() {
@@ -118,4 +122,12 @@ public class Comment {
     public int getLikes() {return likes;}
 
     public void setLikes(int likes) {this.likes = likes;}
+
+    public boolean isAnonimous() {
+        return isAnonimous;
+    }
+
+    public void setAnonimous(boolean isAnonimous) {
+        this.isAnonimous = isAnonimous;
+    }
 }
