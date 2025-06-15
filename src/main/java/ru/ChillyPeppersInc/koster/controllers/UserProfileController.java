@@ -43,7 +43,6 @@ public class UserProfileController {
         // Добавляем данные в модель
         model.addAttribute("profileUser", profileUser);
         if(profileUser.getId() == currentUser.getId()){
-            System.out.println("Ainaz");
             return "redirect:/profile";
         }
         model.addAttribute("user", currentUser);
