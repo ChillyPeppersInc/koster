@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.ChillyPeppersInc.koster.dto.RegistrationDto;
+import ru.ChillyPeppersInc.koster.models.Comment;
 import ru.ChillyPeppersInc.koster.models.Post;
 import ru.ChillyPeppersInc.koster.repositories.UsersRepository;
 import ru.ChillyPeppersInc.koster.models.User;
@@ -48,10 +49,11 @@ public class UserService {
             LocalDate lastLogin = null;
             String password = setPassword(registrationDto.password());
             ArrayList<Post> posts = new ArrayList<>();
+            ArrayList<Comment> comments = new ArrayList<>();
             boolean isActive = false;
             LocalDate deletedAt = null;
             User user = new User(posts, username, name, surname, email, avatar, birthdate, academicGroup, bio, followersCount, followsCount, isActive, lastLogin,
-                    password, createdAt, updatedAt, deletedAt, status);
+                    password, createdAt, updatedAt, deletedAt, status, comments);
             userRepository.save(user);
             return ResponseEntity.ok("User registered successfully!");
         } catch (RuntimeException e) {

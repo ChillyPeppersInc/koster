@@ -46,12 +46,8 @@ public class CommentController {
         User ownerUser = userService.findByUsername(ownerUsername).
                 orElseThrow(() -> new UsernameNotFoundException(writerUsername));
         User writerUser;
-        if (!isAnonimous) {
-            writerUser = userService.findByUsername(writerUsername).
-                    orElseThrow(() -> new UsernameNotFoundException(writerUsername));
-        } else {
-            writerUser = null;
-        }
+        writerUser = userService.findByUsername(writerUsername).
+                orElseThrow(() -> new UsernameNotFoundException(writerUsername));
 
         Comment newComment = commentService.createComment(ownerUser, writerUser, content, isAnonimous);
 
