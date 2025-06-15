@@ -98,7 +98,6 @@
                             <a th:href="'https://yandex.ru/maps/?ll=' + ${post.geolocation} + '&z=17&pt=' + ${post.geolocation} + ',pm2blm'">
                                 <img th:src="'https://static-maps.yandex.ru/1.x/?ll=' + ${post.geolocation} + '&size=300,200&z=17&l=map&pt=' + ${post.geolocation} + ',pm2blm'">
                             </a>
-                            <div th:id="'map' + ${post.id}" style="max-width: 300px;" th:data-geo="${post.geolocation}"></div>
                         </div>
                         <div class="comment-actions">
                             <span class="comment-action like-button" onclick="handleLikeOnPost(this)" th:data-post-id="${post.id}"><i class="far fa-thumbs-up"></i> Нравится (<span th:text="${post.likes}"class="like-count">0</span>)</span>
