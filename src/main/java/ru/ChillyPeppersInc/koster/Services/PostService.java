@@ -75,4 +75,8 @@ public class PostService {
     public List<Post> findByUser(User user) {
         return postRepository.findByUser(user);
     }
+
+    public List<Post> getAll(){
+        return postRepository.findAll();
+    }
 }
