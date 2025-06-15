@@ -24,10 +24,10 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    @OneToMany(mappedBy = "owner_user_id")
+    @OneToMany(mappedBy = "ownerUser")
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "writer_user_id")
+    @OneToMany(mappedBy = "writerUser")
     private List<Comment> writedComments;
 
     @NotEmpty(message = "Username shouldn't be empty")
