@@ -234,7 +234,7 @@ public class User {
         this.posts = posts;
     }
 
-    public void setComments(List<Comment> posts) {
+    public void setComments(ArrayList<Comment> comments) {
         this.comments = comments;
     }
 
