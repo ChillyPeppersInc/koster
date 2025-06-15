@@ -131,7 +131,13 @@
     font-weight: 600;
     color: var(--light-color);
     margin-right: 10px;
+    text-decoration: none;
+    transition: color 0.3s;
 }
+.comment-author:hover{
+    color: var(--primary-color);
+}
+
 .comment-date {
     color: var(--dark-color);
     font-size: 0.8rem;
@@ -311,7 +317,7 @@
     font-weight: 650;
     margin-bottom: 10px;
 }
-.geo-add-button {
+.geo-add-button, .anon-comment-select {
     color: var(--dark-color);
     font-weight: 650;
 }

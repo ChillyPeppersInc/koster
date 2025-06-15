@@ -13,8 +13,8 @@
 
     <div class="profile-page animate__animated animate__fadeIn">
         <div class="profile-sidebar">
-            <img th:if="${profileUser.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
-            <img th:if="${profileUser.avatar != null}" th:src="${profileUser.avatar}" class="profile-avatar">
+            <img th:if="${profileUser.avatar == null || profileUser.avatar == ''}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
+            <img th:if="${profileUser.avatar != null && profileUser.avatar != ''}" th:src="${profileUser.avatar}" class="profile-avatar">
 
             <h2 class="profile-name">
                 <span th:text="${profileUser.name}"></span>
@@ -74,15 +74,16 @@
                 <span class="comments-title" onclick="showComments()">
                     <i class="fas fa-comments"></i> Комментарии
                 </span>
-                <span class="add-post-btn" onclick="openCreatePostModal()" title="Добавить пост">
+                <span class="add-post-btn" onclick="openCreatePostModal()" title="Добавить пост" style="display: none;">
                     <i class="fas fa-plus"></i>
                 </span>
             </h3>
 
-            <div th:each="post : ${profileUser.posts}" class="posts">
-                <div class="comment">
-                    <img th:if="${post.user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
-                    <img th:if="${post.user.avatar != null}" th:src="${post.user.avatar}" class="comment-avatar">
+            <div class="posts">
+                <h2 th:if="${profileUser.getPosts().size() == 0}">Нет публикаций</h2>
+                <div th:each="post : ${profileUser.getPosts()}" class="comment">
+                    <img th:if="${post.user.avatar == null || post.user.avatar == ''}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
+                    <img th:if="${post.user.avatar != null && post.user.avatar != ''}" th:src="${post.user.avatar}" class="comment-avatar">
 
                     <div class="comment-content">
                         <div class="comment-header">
@@ -92,41 +93,30 @@
                             </span>
                         </div>
                         <p th:text="${post.content}" class="comment-text"></p>
+                        <img th:if="${post.image != null}" th:src="${post.image}" style="max-width: 300px;">
                         <div class="comment-actions">
-                            <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
+                            <span class="comment-action like-button" onclick="handleLikeOnPost(this)" th:data-post-id="${post.id}"><i class="far fa-thumbs-up"></i> Нравится (<span th:text="${post.likes}" class="like-count">0</span>)</span>
                         </div>
                     </div>
                 </div>
-
-                <!--<div class="comment">
-                    <img th:src="@{/images/avatars/kamil.jpg}" class="comment-avatar">
-                    <div class="comment-content">
-                        <div class="comment-header">
-                            <span class="comment-author">Камиль Хуззятов</span>
-                            <span class="comment-date">27.05.2025 в 22:20</span>
-                        </div>
-                        <p class="comment-text">Всем привет!!!</p>
-                        <div class="comment-actions">
-                            <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
-                        </div>
-                    </div>
-                </div>-->
             </div>
 
-
-
             <div class="comments">
-                <div class="comment">
-                    <img th:src="@{/images/avatars/anton.jpg}" class="comment-avatar">
+                <h2 th:if="${profileUser.getComments().size() == 0}">Нет комментариев</h2>
+                <div th:each="comment : ${profileUser.getComments()}" class="comment">
+                    <img th:if="${comment.getWriterUser().avatar == null || comment.getWriterUser().avatar == ''}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
+                    <img th:if="${comment.getWriterUser().avatar != null && comment.getWriterUser().avatar != ''}" th:src="${comment.getUser().avatar}" class="comment-avatar">
+
                     <div class="comment-content">
                         <div class="comment-header">
-                            <span class="comment-author">Антон Котельников</span>
-                            <span class="comment-date">27.05.2025 в 22:20</span>
+                            <span th:text="${comment.getWriterUser().name} + ' ' + ${comment.getWriterUser().surname}" class="comment-author"></span>
+                            <span class="comment-date">
+                                <!-- потом сделать дату-->
+                            </span>
                         </div>
-                        <p class="comment-text">привет</p>
+                        <p th:text="${comment.content}" class="comment-text"></p>
                         <div class="comment-actions">
-                            <span class="comment-action"><i class="fas fa-reply"></i> Ответить</span>
-                            <span class="comment-action like-button" onclick="handleLike(this)"><i class="far fa-thumbs-up"></i> Нравится (<span class="like-count">0</span>)</span>
+                            <span class="comment-action like-button" onclick="handleLikeOnComment(this)" th:data-comment-id="${comment.id}"><i class="far fa-thumbs-up"></i> Нравится (<span th:text="${comment.likes}"class="like-count">0</span>)</span>
                         </div>
                     </div>
                 </div>
@@ -141,11 +131,24 @@
       <div class="modal__content">
         <button class="modal__close" onclick="closeCreatePostModal()" aria-label="Закрыть">&times;</button>
         <div class="modal__header">
-          <h2 class="modal__title">Создать пост</h2>
+          <h2 class="modal__title">Написать комментарий</h2>
         </div>
-        <form id="postForm" class="post-form" method="POST" th:action="@{/api/post_create}" enctype="multipart/form-data">
-          <textarea id="content" name="content" class="post-form__textarea" placeholder="Что у вас нового?"></textarea>
-          <input type="file" id="image" name="image" accept="image/*">
+
+        <form id="postForm" class="post-form" method="POST" th:action="@{/api/comment_create}" enctype="multipart/form-data">
+            <input type="text" id="username" name="username" style="display: none" th:value="${profileUser.username}">
+            <input type="text" id="isAnonimous" name="isAnonimous" style="display: none" th:value="${false}">
+          <textarea id="content" name="content" class="post-form__textarea" placeholder="Ваш комментарий"></textarea>
+          <div class="upload-image-button" onclick="document.getElementById('image').click()">
+            <input type="file" id="image" name="image" accept="image/*" style="display: none">
+            <i class="fa fa-paperclip" aria-hidden="true"></i>
+            <span>Загрузить изображение</span>
+          </div>
+          <div class="anon-comment-select">
+              <input type="text" id="isAnonimous" name="isAnonimous" value="0" style="display: none">
+              <input type="checkbox" id="share-location" onclick="processAnon(this)">
+              <span>Анонимно</span>
+          </div>
+
           <div class="modal__actions">
             <button type="button" class="button button--secondary" onclick="closeCreatePostModal()">Отмена</button>
             <button type="submit" class="button button--primary">Опубликовать</button>
@@ -154,6 +157,6 @@
       </div>
     </div>
 
-    <script th:src="@{/js/profile.js}"></script>
+    <script th:src="@{/js/user.js}"></script>
 </body>
 </html>
