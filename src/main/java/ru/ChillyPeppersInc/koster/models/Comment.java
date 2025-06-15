@@ -3,7 +3,7 @@ package ru.ChillyPeppersInc.koster.models;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Past;
 import org.springframework.format.annotation.DateTimeFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Comments")
@@ -17,10 +17,6 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @JoinColumn(name = "post_id")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Post post;
-
     @Column(name = "content")
     private String content;
 
@@ -28,19 +24,18 @@ public class Comment {
     private String image;
 
     @Column(name = "created_at")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Past
-    private Date createdAt;
+    private LocalDate createdAt;
 
     @Column(name = "updated_at")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @Past
-    private Date updatedAt;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
+    private LocalDate updatedAt;
 
     @Column(name = "deleted_at")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     @Past
-    private Date deletedAt;
+    private LocalDate deletedAt;
 
     @Column(name = "status")
     private String status;
@@ -50,9 +45,8 @@ public class Comment {
 
     public Comment() {}
 
-    public Comment(User user, Post post, String content, String image, Date createdAt, Date updatedAt, Date deletedAt, String status) {
+    public Comment(User user, String content, String image, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status) {
         this.user = user;
-        this.post = post;
         this.content = content;
         this.image = image;
         this.createdAt = createdAt;
@@ -62,20 +56,16 @@ public class Comment {
         this.likes = 0;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Post getPost() {
-        return post;
-    }
-
-    public void setPost(Post post) {
-        this.post = post;
     }
 
     public String getContent() {
@@ -94,27 +84,27 @@ public class Comment {
         this.image = image;
     }
 
-    public Date getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
 
-    public Date getUpdatedAt() {
+    public LocalDate getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Date updatedAt) {
+    public void setUpdatedAt(LocalDate updatedAt) {
         this.updatedAt = updatedAt;
     }
 
-    public Date getDeletedAt() {
+    public LocalDate getDeletedAt() {
         return deletedAt;
     }
 
-    public void setDeletedAt(Date deletedAt) {
+    public void setDeletedAt(LocalDate deletedAt) {
         this.deletedAt = deletedAt;
     }
 

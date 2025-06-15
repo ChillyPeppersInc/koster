@@ -17,9 +17,6 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     // Найти все посты пользователя
     List<Post> findByUser(User user);
 
-    // Найти все посты пользователя с пагинацией
-    List<Post> findByUserOrderByCreatedAtDesc(User user, org.springframework.data.domain.Pageable pageable);
-
     // Найти все публичные посты
     List<Post> findByIsPublicTrueOrderByCreatedAtDesc();
 

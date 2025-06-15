@@ -10,10 +10,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.ChillyPeppersInc.koster.Services.FileStorageService;
-import ru.ChillyPeppersInc.koster.Services.PostService;
+import ru.ChillyPeppersInc.koster.Services.CommentService;
 import ru.ChillyPeppersInc.koster.Services.UserService;
 import ru.ChillyPeppersInc.koster.models.Post;
 import ru.ChillyPeppersInc.koster.models.User;
+import ru.ChillyPeppersInc.koster.models.Comment;
 
 
 import java.io.IOException;
@@ -21,34 +22,34 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/api")
-public class PostController {
+public class CommentController {
 
-    private final PostService postService;
+    private final CommentService commentService;
     private final UserService userService;
 
     @Autowired
-    public PostController(PostService postService, UserService userService) {
-        this.postService = postService;
+    public CommentController(CommentService commentService, UserService userService) {
+        this.commentService = commentService;
         this.userService = userService;
     }
 
-    @PostMapping("/post_create")
-    public ResponseEntity<?> createPost(
+    @PostMapping("/comment_create/")
+    public ResponseEntity<?> createComment(
             Principal principal,
+            @RequestParam("user_id") int user_id,
             @RequestParam("content") String content,
             @RequestParam(value = "image", required = false) MultipartFile image,
-            @RequestParam(value = "geolocation", required = false) String geolocation,
             HttpServletResponse response) {
 
         String username = principal.getName();
-        User currentUser = userService.findByUsername(username).
+        User currentUser = userService.findById(user_id).
                 orElseThrow(() -> new UsernameNotFoundException(username));
 
-        Post newPost = postService.createPost(currentUser, content, geolocation);
+        Comment newComment = commentService.createComment(currentUser, content);
 
         try {
-            postService.attachImageToPost(newPost, image);
-            response.sendRedirect("/profile");
+            commentService.attachImageToComment(newComment, image);
+            response.sendRedirect("/user/" + user_id);
             return null;
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
