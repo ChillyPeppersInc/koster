@@ -22,7 +22,7 @@ public class FeedController {
     @GetMapping("/feed")
     public String feedPage(Model model) {
         List<Post> allPosts = postService.getAll();
-        model.addAttribute("posts", allPosts);
+        model.addAttribute("posts", allPosts.reversed());
         return "feed";
     }
 }
