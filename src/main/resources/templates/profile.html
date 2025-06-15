@@ -94,6 +94,12 @@
                         </div>
                         <p th:text="${post.content}" class="comment-text"></p>
                         <img th:if="${post.image != null}" th:src="${post.image}" style="max-width: 300px;">
+                        <div th:if="${post.geolocation != null}">
+                            <a th:href="'https://yandex.ru/maps/?ll=' + ${post.geolocation} + '&z=17&pt=' + ${post.geolocation} + ',pm2blm'">
+                                <img th:src="'https://static-maps.yandex.ru/1.x/?ll=' + ${post.geolocation} + '&size=300,200&z=17&l=map&pt=' + ${post.geolocation} + ',pm2blm'">
+                            </a>
+                            <div th:id="'map' + ${post.id}" style="max-width: 300px;" th:data-geo="${post.geolocation}"></div>
+                        </div>
                         <div class="comment-actions">
                             <span class="comment-action like-button" onclick="handleLikeOnPost(this)" th:data-post-id="${post.id}"><i class="far fa-thumbs-up"></i> Нравится (<span th:text="${post.likes}"class="like-count">0</span>)</span>
                         </div>
@@ -103,13 +109,13 @@
 
             <div class="comments">
                 <h2 th:if="${user.getComments().size() == 0}">Нет комментариев</h2>
-                <div th:each="comment : ${user.getComments()}" class="comment">
-                    <div th:if="${comment.isAnonimous}" class="comment" style="padding: 0">
+                <div th:each="comment : ${user.getComments()}">
+                    <div th:if="${comment.isAnonimous}" class="comment">
                         <img th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
 
                         <div class="comment-content">
                             <div class="comment-header">
-                                <span class="comment-author">Аноним</a>
+                                <span class="comment-author">Аноним</span>
                                 <span class="comment-date">
                                     <!-- потом сделать дату-->
                                 </span>
@@ -121,7 +127,7 @@
                         </div>
                     </div>
 
-                    <div th:if="${!comment.isAnonimous}" class="comment" style="padding: 0">
+                    <div th:if="${!comment.isAnonimous}" class="comment">
                         <img th:if="${comment.getWriterUser().avatar == null || comment.getWriterUser().avatar == ''}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
                         <img th:if="${comment.getWriterUser().avatar != null && comment.getWriterUser().avatar != ''}" th:src="${comment.getWriterUser().avatar}" class="comment-avatar">
 
@@ -139,13 +145,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
-
-
         </div>
     </div>
-</span>
-</div>
 
     <div id="createPostModal" class="modal">
       <div class="modal__content">
@@ -161,13 +164,11 @@
             <span>Загрузить изображение</span>
           </div>
           <div class="geo-add-button">
-              <input type="text" id="geoposition" name="geoposition" value="" style="display: none">
+              <input type="text" id="geolocation" name="geolocation" value="" style="display: none">
               <input type="checkbox" id="share-location" onclick="processGeoposition(this)">
               <span>Поделиться геопозицией</span>
           </div>
-          <div id="geo-map" style="display: none">
-            <div id="map"></div>
-          </div>
+          <div id="map" style="width: 100%;height: 35vh; display: none;"></div>
           <div class="modal__actions">
             <button type="button" class="button button--secondary" onclick="closeCreatePostModal()">Отмена</button>
             <button type="submit" class="button button--primary">Опубликовать</button>
@@ -176,9 +177,10 @@
       </div>
     </div>
 
-    <script th:src="@{/js/profile.js}"></script>
-    <script th:src="@{/js/maps.js}"></script>
     <script crossorigin src="https://cdn.jsdelivr.net/npm/@babel/standalone@7/babel.min.js"></script>
     <script src="https://api-maps.yandex.ru/2.1/?apikey=39f06ba3-21d4-452d-a525-0a037274147b&lang=ru_RU" type="text/javascript"></script>
+
+    <script th:src="@{/js/profile.js}"></script>
+
 </body>
 </html>
