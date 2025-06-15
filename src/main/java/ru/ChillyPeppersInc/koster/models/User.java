@@ -25,7 +25,7 @@ public class User {
     private List<Post> posts;
 
     @OneToMany(mappedBy = "user")
-    private ArrayList<Comment> comments;
+    private List<Comment> comments;
 
     @NotEmpty(message = "Username shouldn't be empty")
     @Size(min = 3, max = 50, message = "Username length should be between 3 and 20")
