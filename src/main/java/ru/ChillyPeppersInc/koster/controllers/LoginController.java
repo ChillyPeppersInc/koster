@@ -18,7 +18,7 @@ public class LoginController {
             Authentication authentication
     ) {
         if (authentication != null && authentication.isAuthenticated()) {
-            return "redirect:/"; // Залогиненных перенаправляем на главную
+            return "redirect:/feed";
         }
         if (error != null) {
             model.addAttribute("error", "Неверный логин или пароль");
@@ -26,7 +26,7 @@ public class LoginController {
         if (logout != null) {
             model.addAttribute("message", "Вы успешно вышли из системы.");
         }
-        return "login.html";
+        return "login";
     }
 
 }

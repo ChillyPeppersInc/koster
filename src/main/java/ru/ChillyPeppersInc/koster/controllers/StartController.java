@@ -1,6 +1,7 @@
 package ru.ChillyPeppersInc.koster.controllers;
 
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,8 +13,10 @@ public class StartController {
 
     @GetMapping("/")
     public String welcomePage(Model model,
-                              @AuthenticationPrincipal User currentUser) {
-        model.addAttribute("user", currentUser);
+                              Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/feed";
+        }
         return "index";
     }
 }
