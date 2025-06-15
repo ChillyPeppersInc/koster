@@ -23,6 +23,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments;
+
     @NotEmpty(message = "Username shouldn't be empty")
     @Size(min = 3, max = 50, message = "Username length should be between 3 and 20")
     @Column(name = "username", unique = true)
@@ -229,6 +232,10 @@ public class User {
         this.posts = posts;
     }
 
+    public void setComments(List<Comment> posts) {
+        this.comments = comments;
+    }
+
     public void setAcademicGroup(String academicGroup) {
         this.academicGroup = academicGroup;
     }
@@ -269,4 +276,7 @@ public class User {
 
     public List<Post> getPosts() {return posts.reversed();}
 
+    public List<Comment> getComments() {
+        return comments.reversed();
+    }
 }

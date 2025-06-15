@@ -13,8 +13,8 @@
 
     <div class="profile-page animate__animated animate__fadeIn">
         <div class="profile-sidebar">
-            <img th:if="${user.avatar == null}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
-            <img th:if="${user.avatar != null}" th:src="${user.avatar}" class="profile-avatar">
+            <img th:if="${user.avatar == null || user.avatar == ''}" th:src="@{/images/avatars/default-avatar.png}" class="profile-avatar">
+            <img th:if="${user.avatar != null && user.avatar != ''}" th:src="${user.avatar}" class="profile-avatar">
 
             <h2 class="profile-name">
                 <span th:text="${user.name}"></span>

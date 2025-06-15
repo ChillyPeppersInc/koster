@@ -34,7 +34,12 @@ public class SettingsService {
         user.setBio(settingsDto.bio());
         user.setUpdatedAt(LocalDate.now());
         try {
-            user.setAvatar("images/avatars/" + getImage(settingsDto));
+            String filename = getImage(settingsDto);
+            if (!filename.isEmpty()) {
+                user.setAvatar("images/avatars/" + getImage(settingsDto));
+            } else {
+                user.setAvatar("");
+            }
         } catch (Exception e) {
             e.getStackTrace();
         }
@@ -45,6 +50,9 @@ public class SettingsService {
 
     private String getImage(SettingsDto settingsDto) {
         MultipartFile file = settingsDto.avatar();
+        if (!file.getContentType().startsWith("image/")) {
+            return "";
+        }
         validateImageFile(file);
 
         String filename = generateFilename(file.getOriginalFilename());
@@ -60,9 +68,6 @@ public class SettingsService {
     private void validateImageFile(MultipartFile file) {
         if (file.isEmpty()) {
             throw new RuntimeException("File is empty");
-        }
-        if (!file.getContentType().startsWith("image/")) {
-            throw new RuntimeException("Only image files are allowed");
         }
     }
 
