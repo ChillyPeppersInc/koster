@@ -45,6 +45,9 @@ public class Comment {
     @Column(name = "status")
     private String status;
 
+    @Column(name = "likes")
+    private int likes;
+
     public Comment() {}
 
     public Comment(User user, Post post, String content, String image, Date createdAt, Date updatedAt, Date deletedAt, String status) {
@@ -56,6 +59,7 @@ public class Comment {
         this.updatedAt = updatedAt;
         this.deletedAt = deletedAt;
         this.status = status;
+        this.likes = 0;
     }
 
     public User getUser() {
@@ -121,4 +125,8 @@ public class Comment {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getLikes() {return likes;}
+
+    public void setLikes(int likes) {this.likes = likes;}
 }
