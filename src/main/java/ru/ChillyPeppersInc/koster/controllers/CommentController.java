@@ -33,7 +33,7 @@ public class CommentController {
         this.userService = userService;
     }
 
-    @PostMapping("/comment_create/")
+    @PostMapping("/comment_create")
     public ResponseEntity<?> createComment(
             Principal principal,
             @RequestParam("username") String userName,
