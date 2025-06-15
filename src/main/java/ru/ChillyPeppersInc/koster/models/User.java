@@ -24,8 +24,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Post> posts;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "owner_user_id")
     private List<Comment> comments;
+
+    @OneToMany(mappedBy = "writer_user_id")
+    private List<Comment> writedComments;
 
     @NotEmpty(message = "Username shouldn't be empty")
     @Size(min = 3, max = 50, message = "Username length should be between 3 and 20")
@@ -96,7 +99,7 @@ public class User {
     private String status;
 
 
-    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, String academicGroup, String bio, int followersCount, int followsCount, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status, ArrayList<Comment> comments) {
+    public User(List<Post> posts, String username, String name, String surname, String email, String avatar, LocalDate birthdate, String academicGroup, String bio, int followersCount, int followsCount, boolean isActive, LocalDate lastLogin, String password, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status, ArrayList<Comment> comments, ArrayList<Comment> writedComments) {
         this.posts = posts;
         this.username = username;
         this.name = name;
@@ -116,6 +119,7 @@ public class User {
         this.deletedAt = deletedAt;
         this.status = status;
         this.comments = comments;
+        this.writedComments = writedComments;
     }
 
     public User() {
@@ -238,6 +242,10 @@ public class User {
         this.comments = comments;
     }
 
+    public void setWritedComments(ArrayList<Comment> writedComments) {
+        this.writedComments = writedComments;
+    }
+
     public void setAcademicGroup(String academicGroup) {
         this.academicGroup = academicGroup;
     }
@@ -280,6 +288,9 @@ public class User {
 
     public ArrayList<Comment> getComments() {
         return new ArrayList<Comment>(comments.reversed());
+    }
+    public ArrayList<Comment> getWritedComments() {
+        return new ArrayList<Comment>(writedComments.reversed());
     }
 
     public void addComment(Comment comment) {

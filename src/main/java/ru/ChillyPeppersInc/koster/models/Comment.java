@@ -13,9 +13,13 @@ public class Comment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "owner_user_id")
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;
+    private User ownerUser;
+
+    @JoinColumn(name = "writer_user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User writerUser;
 
     @Column(name = "content")
     private String content;
@@ -47,8 +51,9 @@ public class Comment {
 
     public Comment() {}
 
-    public Comment(User user, String content, String image, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status, boolean isAnonimous, int likes) {
-        this.user = user;
+    public Comment(User ownerUser, User writerUser, String content, String image, LocalDate createdAt, LocalDate updatedAt, LocalDate deletedAt, String status, boolean isAnonimous, int likes) {
+        this.ownerUser = ownerUser;
+        this.writerUser = writerUser;
         this.content = content;
         this.image = image;
         this.createdAt = createdAt;
@@ -63,12 +68,20 @@ public class Comment {
         return id;
     }
 
-    public User getUser() {
-        return user;
+    public User getOwnerUser() {
+        return ownerUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public User getWriterUser() {
+        return writerUser;
+    }
+
+    public void setOwnerUser(User ownerUser) {
+        this.ownerUser = ownerUser;
+    }
+
+    public void setWriterUser(User writerUser) {
+        this.writerUser = writerUser;
     }
 
     public String getContent() {

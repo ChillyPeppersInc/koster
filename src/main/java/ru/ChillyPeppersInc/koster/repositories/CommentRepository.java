@@ -16,6 +16,6 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 
     // Найти все посты пользователя
-    List<Comment> findByUser(User user);
+    List<Comment> findByOwnerUser(User ownerUser);
 
 }

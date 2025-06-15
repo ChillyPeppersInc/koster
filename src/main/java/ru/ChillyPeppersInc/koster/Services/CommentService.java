@@ -28,13 +28,13 @@ public class CommentService {
     @Transactional
     public Comment createComment(User ownerUser, User writerUser, String content, boolean isAnonimous) {
         Comment comment = new Comment();
-        comment.setUser(writerUser);
+        comment.setWriterUser(writerUser);
         comment.setContent(content);
         comment.setCreatedAt(LocalDate.now());
         comment.setUpdatedAt(LocalDate.now());
         comment.setStatus("active");
         comment.setAnonimous(isAnonimous);
-        ownerUser.addComment(comment);
+        comment.setOwnerUser(ownerUser);
         return commentRepository.save(comment);
     }
 
@@ -47,8 +47,8 @@ public class CommentService {
         }
     }
 
-    public List<Comment> findAllByUser(User user) {
-        return commentRepository.findByUser(user);
+    public List<Comment> findAllByOwnerUser(User user) {
+        return commentRepository.findByOwnerUser(user);
     }
 
     public Comment findById(Integer id) {
@@ -72,9 +72,5 @@ public class CommentService {
 //        existingPost.setStatus(post.getStatus());
 //        existingPost.setUser(post.getUser());
         commentRepository.save(comment);
-    }
-
-    public List<Comment> findByUser(User user) {
-        return commentRepository.findByUser(user);
     }
 }

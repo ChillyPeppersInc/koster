@@ -28,7 +28,7 @@ public class UserController {
         if (authentication != null && authentication.isAuthenticated()) {
             return "redirect:/feed";
         }
-        model.addAttribute("registartionDTO", new RegistrationDto("", "", "", "", "", "", ""));
+        model.addAttribute("registartionDto", new RegistrationDto("", "", "", "", "", "", ""));
         return "register";
     }
 

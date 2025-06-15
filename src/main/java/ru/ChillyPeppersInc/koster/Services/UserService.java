@@ -50,10 +50,11 @@ public class UserService {
             String password = setPassword(registrationDto.password());
             ArrayList<Post> posts = new ArrayList<>();
             ArrayList<Comment> comments = new ArrayList<>();
+            ArrayList<Comment> writedComments = new ArrayList<>();
             boolean isActive = false;
             LocalDate deletedAt = null;
             User user = new User(posts, username, name, surname, email, avatar, birthdate, academicGroup, bio, followersCount, followsCount, isActive, lastLogin,
-                    password, createdAt, updatedAt, deletedAt, status, comments);
+                    password, createdAt, updatedAt, deletedAt, status, comments, writedComments);
             userRepository.save(user);
             return ResponseEntity.ok("User registered successfully!");
         } catch (RuntimeException e) {
