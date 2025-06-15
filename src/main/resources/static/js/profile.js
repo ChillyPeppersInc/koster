@@ -105,11 +105,11 @@ function closeCreatePostModal() {
 };
 
 function processGeoposition(checkbox) {
-    const map = document.getElementById('geo-map');
-    const geoposition = document.getElementById('geoposition');
+    const map = document.getElementById('map');
+    const geoposition = document.getElementById('geolocation');
+
     if (checkbox.checked) {
         map.style.display = 'block';
-        loadMap();
     } else {
         map.style.display = 'none';
         geoposition.value = '';
@@ -157,13 +157,14 @@ function loadMap() {
             myMap.geoObjects.add(myPlacemark);
 
             // Записываем координаты в поле формы
-            var coordField = document.getElementById('geoposition');
+            var coordField = document.getElementById('geolocation');
             if (coordField) {
-                coordField.value = coords[0].toFixed(6) + ', ' + coords[1].toFixed(6);
+                coordField.value = coords[1].toFixed(6) + ',' + coords[0].toFixed(6);
             }
         });
     }
 };
+document.addEventListener('DOMContentLoaded', loadMap());
 // Закрытие модального окна при клике вне его
 window.onclick = function(event) {
     const modal = document.getElementById('createPostModal');
@@ -171,22 +172,3 @@ window.onclick = function(event) {
         closeCreatePostModal();
     }
 };
-
-/*
-// Обработчик отправки формы
-document.getElementById('postForm')?.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const content = document.getElementById('postContent').value;
-
-    // Здесь должна быть логика отправки поста на сервер
-    console.log('Отправка поста:', content);
-
-    // После успешной отправки:
-    closeCreatePostModal();
-    document.getElementById('postContent').value = '';
-
-    // Можно обновить список постов или добавить новый пост в DOM
-});
-
-
-*/
