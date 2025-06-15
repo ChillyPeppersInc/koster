@@ -38,7 +38,7 @@ public class CommentController {
             Principal principal, // кто пишет
             @RequestParam("username") String ownerUsername, // кому пишут
             @RequestParam("content") String content,
-            @RequestParam("isAnonimous") int isAnonimous,
+            @RequestParam("isAnonimous") boolean isAnonimous,
             @RequestParam(value = "image", required = false) MultipartFile image,
             HttpServletResponse response) {
 

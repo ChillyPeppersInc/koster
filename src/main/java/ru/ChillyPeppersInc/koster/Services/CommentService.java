@@ -26,14 +26,14 @@ public class CommentService {
         this.fileStorageService = fileStorageService;}
 
     @Transactional
-    public Comment createComment(User ownerUser, User writerUser, String content, int isAnonimous) {
+    public Comment createComment(User ownerUser, User writerUser, String content, boolean isAnonimous) {
         Comment comment = new Comment();
         comment.setWriterUser(writerUser);
         comment.setContent(content);
         comment.setCreatedAt(LocalDate.now());
         comment.setUpdatedAt(LocalDate.now());
         comment.setStatus("active");
-        comment.setAnonimous(isAnonimous == 1);
+        comment.setAnonimous(isAnonimous);
         comment.setOwnerUser(ownerUser);
         return commentRepository.save(comment);
     }
