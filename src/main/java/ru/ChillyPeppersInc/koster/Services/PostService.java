@@ -65,7 +65,6 @@ public class PostService {
         existingPost.setContent(post.getContent());
         existingPost.setImage(post.getImage());
         existingPost.setGeolocation(post.getGeolocation());
-        existingPost.setUpdatedAt(post.getUpdatedAt());
         existingPost.setPublic(post.isPublic());
         existingPost.setStatus(post.getStatus());
         existingPost.setUser(post.getUser());
