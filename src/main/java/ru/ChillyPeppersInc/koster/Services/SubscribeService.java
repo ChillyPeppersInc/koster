@@ -45,6 +45,8 @@ public class SubscribeService {
             subscriber.setUser(profileUser);
             subscriber.setCreatedAt(Date.valueOf(LocalDateTime.now().toLocalDate()));
             subscribeRepository.save(subscriber);
+            currentUser.setFollowsCount(currentUser.getFollowsCount() + 1);
+            profileUser.setFollowersCount(profileUser.getFollowersCount() + 1);
             return ResponseEntity.ok(Map.of("message", "Subscribe added",
                     "currentUserFollows", subscribeRepository.countBySubscriber(currentUser),
                     "profileUserFollowers", subscribeRepository.countByUser(profileUser)));
