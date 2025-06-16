@@ -112,7 +112,30 @@ function processAnon(checkbox) {
         map.style.display = 'none';
         isAnonimous.value = '0';
     }
-}
+};
+
+function processSubscribe(button) {
+    const userId = button.dataset.userId;
+
+    if (button.textContent === "Подписаться") {
+        button.className = 'button button--secondary';
+        button.textContent = 'Отписаться';
+    } else {
+        button.className = 'button button--primary';
+        button.textContent = 'Подписаться';
+    }
+
+
+    fetch(`/api/subscribe?profileUserId=${userId}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': document.cookie
+    },
+    body: JSON.stringify({
+        profileUserId: userId
+    })})
+};
 
 // Закрытие модального окна при клике вне его
 window.onclick = function(event) {

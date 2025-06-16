@@ -21,6 +21,11 @@
                 <span th:text="${profileUser.surname}"></span>
             </h2>
             <p class="profile-username" th:text="'@' + ${profileUser.username}"></p>
+
+            <center>
+                <button class="btn btn-primary" onclick="processSubscribe(this)" th:data-user-id="${profileUser.id}">Подписаться</button>
+            </center>
+
             <div class="profile-follows">
                 <span class="follows-count">
                     <a th:href="@{/followers}" th:text="${profileUser.followersCount} + ' подписчиков'" class="follow-link"></a>
