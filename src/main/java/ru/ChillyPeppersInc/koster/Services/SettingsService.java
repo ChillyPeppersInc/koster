@@ -36,7 +36,7 @@ public class SettingsService {
         try {
             String filename = getImage(settingsDto);
             if (!filename.isEmpty()) {
-                user.setAvatar("images/avatars/" + getImage(settingsDto));
+                user.setAvatar("/images/avatars/" + getImage(settingsDto));
             } else {
                 user.setAvatar("");
             }

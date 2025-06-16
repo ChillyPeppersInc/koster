@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: commonHead(~{::specific-head})}">
+    <th:block th:fragment="specific-head">
+        <!-- дополнение head -->
+        <link th:href="@{/css/index.css}" rel="stylesheet">
+    </th:block>
+</head>
+
+<body>
+    <div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="posts">
+        <div class="post">
+
+        </div>
+    </div>
+</body>
+</html>
