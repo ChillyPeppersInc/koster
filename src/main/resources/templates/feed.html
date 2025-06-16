@@ -12,8 +12,7 @@
 <body>
     <div th:insert="~{fragments/header :: header}"></div>
 
-
-    <div class="comments-section" overflow-y: auto;">
+    <div class="comments-section" style="overflow-y: auto;">
         <div class="posts">
             <h2 th:if="${posts.size() == 0}">Нет публикаций</h2>
             <div th:each="post : ${posts}" class="comment" th:data-post-id="${post.id}">
