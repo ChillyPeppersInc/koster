@@ -13,9 +13,9 @@
     <div th:insert="~{fragments/header :: header}"></div>
 
 
-    <div class="comments-section" style="max-height: 632px; overflow-y: auto;">
+    <div class="comments-section" overflow-y: auto;">
         <div class="posts">
-            <h2 th:if="${user.getPosts().size() == 0}">Нет публикаций</h2>
+            <h2 th:if="${posts.size() == 0}">Нет публикаций</h2>
             <div th:each="post : ${posts}" class="comment" th:data-post-id="${post.id}">
                 <img th:if="${post.user.avatar == null|| post.user.avatar == ''}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
                 <img th:if="${post.user.avatar != null && post.user.avatar != ''}" th:src="${post.user.avatar}" class="comment-avatar">
