@@ -132,7 +132,7 @@
 
                         <div class="comment-content">
                             <div class="comment-header">
-                                <a th:text="${comment.getWriterUser().name} + ' ' + ${comment.getWriterUser().surname}" class="comment-author"></a>
+                                <a th:href="'/user/' + ${comment.getWriterUser().username}" th:text="${comment.getWriterUser().name} + ' ' + ${comment.getWriterUser().surname}" class="comment-author"></a>
                                 <span class="comment-date">
                                     <!-- потом сделать дату-->
                                 </span>
