@@ -35,5 +35,16 @@ public class LikeController {
         return likeService.toggleLikeOnComment(commentId, principal);
     }
 
+    @PostMapping("/postLikeExists")
+    public ResponseEntity<?> postLikeExist(
+            @RequestParam("postId") Integer postId, Principal principal){
+        return likeService.postLikeExist(postId, principal);
+    }
+
+    @PostMapping("commentLikeExists")
+    public ResponseEntity<?> commentLikeExist(
+            @RequestParam("commentId") Integer commentId, Principal principal){
+        return likeService.commentLikeExist(commentId, principal);
+    }
 
 }

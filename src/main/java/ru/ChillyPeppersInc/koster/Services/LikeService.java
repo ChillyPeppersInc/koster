@@ -77,6 +77,20 @@ public class LikeService {
         }
     }
 
+    public ResponseEntity<?> postLikeExist(Integer postId, Principal principal) {
+        User user = userService.findByUsername(principal.getName()).
+                orElseThrow(() -> new UsernameNotFoundException(principal.getName()));
+        Post post = postService.findById(postId);
+        return ResponseEntity.ok(likeRepository.existByUserAndPost(user, post));
+    }
+
+    public ResponseEntity<?> commentLikeExist(Integer commentId, Principal principal) {
+        User user = userService.findByUsername(principal.getName()).
+                orElseThrow(() -> new UsernameNotFoundException(principal.getName()));
+        Comment comment = commentService.findById(commentId);
+        return ResponseEntity.ok(likeRepository.existByUserAndComment(user, comment));
+    }
+
     public int getPostLikesCount(Integer postId) {
         Post post = postService.findById(postId);
         return likeRepository.countByPost(post);
