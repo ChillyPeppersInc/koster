@@ -69,6 +69,9 @@ public class PostService {
         existingPost.setPublic(post.isPublic());
         existingPost.setStatus(post.getStatus());
         existingPost.setUser(post.getUser());
+
+        postRepository.delete(post);
+
         return postRepository.save(existingPost);
     }
 
