@@ -94,9 +94,9 @@
                         </div>
                         <p th:text="${post.content}" class="comment-text"></p>
                         <img th:if="${post.image != null}" th:src="${post.image}" style="max-width: 300px;">
-                        <div th:if="${post.geolocation != null}">
-                            <a th:if="${post.geolocation != null}" th:href="'https://yandex.ru/maps/?ll=' + ${post.geolocation} + '&z=17&pt=' + ${post.geolocation} + ',pm2blm'">
-                                <img th:if="${post.geolocation != null}" th:src="'https://static-maps.yandex.ru/1.x/?ll=' + ${post.geolocation} + '&size=300,200&z=17&l=map&pt=' + ${post.geolocation} + ',pm2blm'">
+                        <div th:if="${post.geolocation != null && post.geolocation.length() != 0}">
+                            <a th:if="${post.geolocation != null && post.geolocation.length() != 0}" th:href="'https://yandex.ru/maps/?ll=' + ${post.geolocation} + '&z=17&pt=' + ${post.geolocation} + ',pm2blm'">
+                                <img th:if="${post.geolocation != null && post.geolocation.length() != 0}" th:src="'https://static-maps.yandex.ru/1.x/?ll=' + ${post.geolocation} + '&size=300,200&z=17&l=map&pt=' + ${post.geolocation} + ',pm2blm'">
                             </a>
                         </div>
                         <div class="comment-actions">
