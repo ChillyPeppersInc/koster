@@ -321,11 +321,6 @@
     color: var(--dark-color);
     font-weight: 650;
 }
-#map {
-    max-width: fit-content;
-    width: 800px;
-    height: 600px;
-}
 
 .post-form__textarea:focus {
   outline: 2px solid transparent;
