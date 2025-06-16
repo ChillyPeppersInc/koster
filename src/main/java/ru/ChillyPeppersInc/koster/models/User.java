@@ -289,8 +289,9 @@ public class User {
     public List<Post> getPosts() {return posts.reversed();}
 
     public ArrayList<Comment> getComments() {
-        return comments.stream()
+        ArrayList<Comment> coms =  comments.stream()
                 .sorted(Comparator.comparing(Comment::getCreatedAt).reversed()).collect(Collectors.toCollection(ArrayList::new));
+        return new ArrayList<>(coms.reversed());
     }
 
     public ArrayList<Comment> getWritedComments() {
