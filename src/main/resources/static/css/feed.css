@@ -1,0 +1,9 @@
+@media (max-width: 992px) {
+    .comment-content img {
+        width: 250px;
+    }
+}
+
+.comments-section {
+    background: none;
+}

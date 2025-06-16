@@ -116,6 +116,19 @@ function processGeoposition(checkbox) {
     }
 };
 
+function checkLikeOnPost(post) {
+    const postId = document.getElementById("");''
+    fetch(`/api/like/postLikeExists?postId=${postId}`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Cookie': document.cookie
+    },
+    body: JSON.stringify({
+        postId:
+    })})
+}
+
 function loadMap() {
     // Проверяем, загружена ли API Яндекс.Карт
     if (typeof ymaps === 'undefined') {

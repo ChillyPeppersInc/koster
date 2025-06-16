@@ -4,16 +4,42 @@
     <th:block th:fragment="specific-head">
         <!-- дополнение head -->
         <link th:href="@{/css/index.css}" rel="stylesheet">
+        <link th:href="@{/css/profile.css}" rel="stylesheet">
+        <link th:href="@{/css/feed.css}" rel="stylesheet">
     </th:block>
 </head>
 
 <body>
     <div th:insert="~{fragments/header :: header}"></div>
 
-    <div class="posts">
-        <div class="post">
 
+    <div class="comments-section" style="max-height: 632px; overflow-y: auto;">
+        <div class="posts">
+            <h2 th:if="${user.getPosts().size() == 0}">Нет публикаций</h2>
+            <div th:each="post : ${posts}" class="comment">
+                <img th:if="${post.user.avatar == null|| post.user.avatar == ''}" th:src="@{/images/avatars/default-avatar.png}" class="comment-avatar">
+                <img th:if="${post.user.avatar != null && post.user.avatar != ''}" th:src="${post.user.avatar}" class="comment-avatar">
+
+                <div class="comment-content">
+                    <div class="comment-header">
+                        <a th:href="'/user/' + ${post.user.username}" th:text="${post.user.name} + ' ' + ${post.user.surname}" class="comment-author"></a>
+                        <span class="comment-date">
+                            <!-- потом сделать дату-->
+                        </span>
+                    </div>
+
+                    <img th:if="${post.image != null}" th:src="${post.image}" style="max-width: 300px;">
+                    <div th:if="${post.geolocation != null}">
+                        <a th:if="${post.geolocation != null}" th:href="'https://yandex.ru/maps/?ll=' + ${post.geolocation} + '&z=17&pt=' + ${post.geolocation} + ',pm2blm'">
+                            <img th:if="${post.geolocation != null}" th:src="'https://static-maps.yandex.ru/1.x/?ll=' + ${post.geolocation} + '&size=300,200&z=17&l=map&pt=' + ${post.geolocation} + ',pm2blm'">
+                        </a>
+                    </div>
+                    <p th:text="${post.content}" class="comment-text"></p>
+                    <div class="comment-actions">
+                        <span class="comment-action like-button" onclick="handleLikeOnPost(this)" th:data-post-id="${post.id}"><i class="far fa-thumbs-up"></i> Нравится (<span th:text="${post.likes}"class="like-count">0</span>)</span>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 </body>
 </html>
