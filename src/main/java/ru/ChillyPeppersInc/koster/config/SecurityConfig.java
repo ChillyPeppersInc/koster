@@ -18,7 +18,7 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         // Разрешаем доступ БЕЗ авторизации:
-                        .requestMatchers("/", "/index", "/login", "/register", "/password_reset",
+                        .requestMatchers("/", "/index", "/login", "/register", "/password_reset", "/search",
                                 "/static/**",
                                 "/css/**",
                                 "/js/**",
