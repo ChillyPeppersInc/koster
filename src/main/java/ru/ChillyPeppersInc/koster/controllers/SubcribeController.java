@@ -20,7 +20,7 @@ public class SubcribeController {
         this.subscribeService = subscribeService;
     }
 
-    @PostMapping("/subcribe")
+    @PostMapping("/subscribe")
     public ResponseEntity<?> subcribe(
             @RequestParam("profileUserId") Integer profileUserId,
             Principal principal) {
