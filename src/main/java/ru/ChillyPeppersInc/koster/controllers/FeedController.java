@@ -13,6 +13,7 @@ import ru.ChillyPeppersInc.koster.repositories.UsersRepository;
 
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class FeedController {
@@ -28,6 +29,7 @@ public class FeedController {
     @GetMapping("/feed")
     public String feedPage(Model model, Principal principal) {
         List<Post> allPosts = postService.getAll();
+        allPosts.stream().distinct().collect(Collectors.toList());
         User user = usersRepository.findByUsername(principal.getName()).
                 orElseThrow(() -> new UsernameNotFoundException("User not found"));
         model.addAttribute("posts", allPosts.reversed());
