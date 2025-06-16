@@ -10,8 +10,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "Users")
@@ -287,8 +289,10 @@ public class User {
     public List<Post> getPosts() {return posts.reversed();}
 
     public ArrayList<Comment> getComments() {
-        return new ArrayList<Comment>(comments.reversed());
+        return comments.stream()
+                .sorted(Comparator.comparing(Comment::getCreatedAt).reversed()).collect(Collectors.toCollection(ArrayList::new));
     }
+
     public ArrayList<Comment> getWritedComments() {
         return new ArrayList<Comment>(writedComments.reversed());
     }

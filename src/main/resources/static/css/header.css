@@ -39,3 +39,40 @@
     color: var(--primary-color);
     background-color: var(--primary-color);
 }
+/* Стили для поисковой строки */
+.search-form {
+    max-width: 400px; /* Ширина поисковой строки */
+    flex-grow: 0.5; /* Занимает часть свободного пространства */
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-input {
+    border-radius: 20px 0 0 20px !important;
+    padding-left: 15px;
+    border: 1px solid #495057;
+    background-color: #343a40;
+    color: white;
+}
+
+.search-input:focus {
+    box-shadow: 0 0 0 0.25rem rgba(204, 122, 0, 0.25);
+    border-color: #cc7a00;
+    background-color: #343a40;
+    color: white;
+}
+
+.search-button {
+    border-radius: 0 20px 20px 0 !important;
+    background-color: #cc7a00 !important;
+    border-color: #cc7a00 !important;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: var(--primary-color-hover) !important;
+    border-color: var(--primary-color-hover) !important;
+}

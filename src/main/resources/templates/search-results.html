@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: commonHead(~{::specific-head})}">
+    <th:block th:fragment="specific-head">
+        <link th:href="@{/css/index.css}" rel="stylesheet">
+    </th:block>
+</head>
+
+<body>
+<div th:insert="~{fragments/header :: header}"></div>
+
+    <div class="profile-page">
+        <div class="container mt-4">
+            <h2>Результаты поиска для: <span th:text="${searchQuery}"></span></h2>
+
+            <div th:if="${foundUsers.empty}">
+                <p>Пользователи не найдены</p>
+            </div>
+
+            <div th:unless="${foundUsers.empty}" class="list-group mt-3">
+                <a th:each="foundUser : ${foundUsers}" th:href="@{'/user/' + ${foundUser.username}}" class="list-group-item list-group-item-action">
+                    <div class="d-flex align-items-center">
+                        <img th:src="${foundUser.avatar != null && foundUser.avatar != ''} ? ${foundUser.avatar} : @{/images/avatars/default-avatar.png}"
+                             class="rounded-circle me-3" width="50" height="50">
+                        <h5 th:text="${foundUser.name}"></h5><br>
+                        <small class="text-muted" style="margin-left: 10px;" th:text="'@' + ${foundUser.username}"></small>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

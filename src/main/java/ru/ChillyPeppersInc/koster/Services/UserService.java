@@ -85,4 +85,8 @@ public class UserService {
         }
         return userRepository.findById(userId);
     }
+
+    public List<User> searchUsers(String query) {
+        return userRepository.findByNameContainingIgnoreCaseOrUsernameContainingIgnoreCase(query, query);
+    }
 }

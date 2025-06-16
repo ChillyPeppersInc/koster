@@ -3,6 +3,7 @@ package ru.ChillyPeppersInc.koster.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,6 +15,9 @@ import ru.ChillyPeppersInc.koster.models.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
 
+import java.security.Principal;
+import java.util.List;
+
 @Controller
 public class UserController {
 
@@ -21,6 +25,19 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @GetMapping("/search")
+    public String searchUsers(@RequestParam String query, Principal principal, Model model) {
+        String username = principal.getName();
+        User currentUser = userService.findByUsername(username).
+                orElseThrow(() -> new UsernameNotFoundException(username));
+
+        List<User> foundUsers = userService.searchUsers(query);
+        model.addAttribute("foundUsers", foundUsers);
+        model.addAttribute("searchQuery", query);
+        model.addAttribute("user", currentUser);
+        return "search-results"; // имя шаблона для отображения результатов
     }
 
     @GetMapping("/register")

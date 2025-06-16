@@ -8,60 +8,69 @@
 </head>
 
 <body>
-    <link th:href="@{/css/header.css}" rel="stylesheet">
-    <nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
-        <div class="container">
-            <a class="navbar-brand" th:href="@{/}">
-                <img th:src="@{/images/fire.gif}" width="50px" style="padding-right: 10px;">
-                <span>костёр</span>
-            </a>
-
-            <button class="navbar-toggler border-0 navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon text-white"></span>
-            </button>
+<link th:href="@{/css/header.css}" rel="stylesheet">
+<nav th:fragment="header" class="navbar navbar-expand-lg navbar-light bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/images/fire.gif}" width="50px" style="padding-right: 10px;">
+            <span>костёр</span>
+        </a>
 
 
-            <!-- user not logged in -->
-            <div th:if="${user == null}" class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav ms-auto d-flex flex-column align-items-center">
-                    <div class="ms-lg-3 mt-3 mt-lg-0">
-                        <a th:href="@{/login}" class="btn btn-primary me-2">Войти</a>
-                        <a th:href="@{/register}" class="btn btn-primary me-2">Регистрация</a>
-                    </div>
-                </ul>
-            </div>
+        <button class="navbar-toggler border-0 navbar-dark" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon text-white"></span>
+        </button>
 
-            <!-- user logged in-->
-            <div th:if="${user != null}" class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav ms-auto d-flex flex-column align-items-center">
-                    <div class="ms-lg-3 mt-3 mt-lg-0">
-                        <div id="authUserSection">
-                            <div class="dropdown">
-                                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+        <!-- user not logged in -->
+        <div th:if="${user == null}" class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav ms-auto d-flex flex-column align-items-center">
+                <div class="ms-lg-3 mt-3 mt-lg-0">
+                    <a th:href="@{/login}" class="btn btn-primary me-2">Войти</a>
+                    <a th:href="@{/register}" class="btn btn-primary me-2">Регистрация</a>
+                </div>
+            </ul>
+        </div>
+
+        <!-- user logged in-->
+        <div th:if="${user != null}" class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <form class="search-form d-flex mx-3" th:action="@{/search}" method="get">
+                <div class="input-group search-container">
+                    <input type="text" class="form-control search-input" name="query" placeholder="Поиск пользователей..." aria-label="Поиск пользователей">
+                    <button class="btn search-button" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+            </form>
+            <ul class="navbar-nav ms-auto d-flex flex-column align-items-center">
+
+                <div class="ms-lg-3 mt-3 mt-lg-0">
+                    <div id="authUserSection">
+                        <div class="dropdown">
+                            <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                                     <span th:if="${user.avatar == null || user.avatar == ''}">
                                         <img th:src="@{/images/avatars/default-avatar.png}" class="rounded-circle me-2" width="50" height="50">
                                     </span>
-                                    <span th:if="${user.avatar != null && user.avatar != ''}">
+                                <span th:if="${user.avatar != null && user.avatar != ''}">
                                         <img th:src="${user.avatar}" class="rounded-circle me-2" width="50" height="50">
                                     </span>
 
-                                    <span id="usernameDisplay" class="text-white" th:text="${user.name}"></span>
-                                </a>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    <li><a class="dropdown-item" href="/profile">Профиль</a></li>
-                                    <li><a class="dropdown-item" href="/settings">Настройки</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form action="/logout" method="post">
+                                <span id="usernameDisplay" class="text-white" th:text="${user.name}"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                                <li><a class="dropdown-item" href="/profile">Профиль</a></li>
+                                <li><a class="dropdown-item" href="/settings">Настройки</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <form action="/logout" method="post">
                                         <button type="submit" class="dropdown-item">Выйти</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
-                </ul>
-            </div>
+                </div>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
 </body>
